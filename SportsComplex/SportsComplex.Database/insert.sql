@@ -46,8 +46,7 @@ INSERT INTO tblRent (Id, RenterId, ClassId, DateStart, DateEnd, Cost) VALUES
 		(2, 1, 5, GetDate(), DateAdd(hour, 2, GetDate()), 300),
 		(3, 2, 8, GetDate(), DateAdd(hour, 8, GetDate()), 800),
 		(4, 4, 7, GetDate(), DateAdd(hour, 3, GetDate()), 150),
-		(5, 3, 8, GetDate(), DateAdd(hour, 5, GetDate()), 250),
-		(6, 1, 3, DateAdd(hour, 4, GetDate()), DateAdd(hour, 2, DateAdd(hour, 4, GetDate())), 200)
+		(5, 3, 9, GetDate(), DateAdd(hour, 5, GetDate()), 250)
 SET IDENTITY_INSERT tblRent OFF
 
 SET IDENTITY_INSERT tblUser ON

@@ -62,6 +62,7 @@ BEGIN
 		;
 		THROW 80001, 'Rent item was not found', 1; 
 	END
+
 	-- Set class status "Free"
 	UPDATE c
 	SET c.[Status] = 0
@@ -81,7 +82,7 @@ BEGIN
 END
 GO
 
-CREATE PROC spMakeRent
+CREATE PROC [dbo].[spMakeRent]
 	@renterId INT,
 	@sportsHallId INT,
 	@dateStart DATETIME,
@@ -94,16 +95,28 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	IF (@dateStart >= @dateEnd)
+	IF (@dateStart >= @dateEnd OR @dateStart < GETDATE())
 	BEGIN
 		RAISERROR ('Start date of rent cannot be greater or equal, than end date one.', -- Message text.
            16, -- Severity,
            1
 		);
+		RETURN;
 	END
 	
 	BEGIN TRAN MakeRentTran
     WITH MARK N'Making a new rent record';
+
+	IF EXISTS (SELECT 1
+				FROM [SportsComplex].[dbo].[tblRent]
+				WHERE [ClassId] = @sportsHallId AND
+				NOT (@dateStart > DateEnd
+				or
+				@dateEnd < DateStart)
+				AND [Deleted] = 0)
+	BEGIN
+		;THROW 70004, N'Class is rented.', 1;
+	END
 
 	INSERT INTO tblRent
 				(RenterId,
@@ -122,6 +135,16 @@ BEGIN
 
 	SET @rentId = SCOPE_IDENTITY();
 
+	-- Set class status "Free"
+	UPDATE c
+	SET c.[Status] = 0
+	from tblClass c
+    INNER JOIN tblRent r ON c.Id = r.ClassId
+	WHERE r.Id = @rentId;
+
+	PRINT 'CLass status changed';
+
 	COMMIT TRAN MakeRentTran;
 END
+
 GO

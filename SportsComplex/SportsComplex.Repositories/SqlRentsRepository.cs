@@ -30,7 +30,7 @@ namespace SportsComplex.Repositories
                                           INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
                                           INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
-                                          WHERE @Date BETWEEN rent.DateStart AND rent.DateEnd AND rent.Deleted = 0";
+                                          WHERE (@Date BETWEEN rent.DateStart AND DateEnd) AND rent.Deleted = 0";
 
         const string getAllRentsQuery = @"SELECT rent.[Id]
                                           ,rent.[RenterId]

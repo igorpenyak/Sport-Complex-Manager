@@ -90,7 +90,11 @@ namespace SportsComplex.DesktopUI
         private void btnNewRent_Click(object sender, EventArgs e)
         {
             NewRentForm frmNewRent = new NewRentForm();
-            frmNewRent.ShowDialog();
+
+            if (frmNewRent.ShowDialog() == DialogResult.OK)
+            {
+                UpdateRentsDataGridView(_rentsRepository.GetRentsOnDate(DateTime.Now));
+            }
         }
 
         private void cbRenter_DropDown(object sender, EventArgs e)
@@ -114,6 +118,7 @@ namespace SportsComplex.DesktopUI
         private void btnReset_Click(object sender, EventArgs e)
         {
             cbRenter.Items.Clear();
+            dtpDate.Value = DateTime.Now;
             UpdateRentsDataGridView(_rentsRepository.GetRentsOnDate(DateTime.Now));
         }
 
@@ -134,5 +139,12 @@ namespace SportsComplex.DesktopUI
         // Repositories.
         private SqlRentsRepository _rentsRepository;
         private SqlRentersRepository _rentersRepository;
+
+        private void dtpDate_ValueChanged(object sender, EventArgs e)
+        {
+            var rents = _rentsRepository.GetRentsOnDate(dtpDate.Value);
+
+            UpdateRentsDataGridView(rents);
+        }
     }
 }

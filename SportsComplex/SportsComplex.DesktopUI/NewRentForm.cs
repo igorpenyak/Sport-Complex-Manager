@@ -41,6 +41,7 @@ namespace SportsComplex.DesktopUI
             nudAreaMax.Value = halls.Max((h) => h.Area);
             nudRateMin.Value = halls.Min((h) => h.Rate);
             nudRateMax.Value = halls.Max((h) => h.Rate);
+            dtpTimeTo.Value = dtpTimeTo.Value.AddHours(1);
         }
 
         public void UpdateSportsHallsDataGridView(IEnumerable<SportsHall> halls)
@@ -112,7 +113,7 @@ namespace SportsComplex.DesktopUI
 
                     RentId = _rentsRepository.MakeRent(
                         ((Renter)(cbRenter.SelectedItem)).Id,
-                        _rentersRepository.GetRenterById((int)dgvSportsHalls["ID", index].Value).Id,
+                        _rentersRepository.GetRenterById((int)dgvSportsHalls["ColumnId", index].Value).Id,
                         dtFrom,
                         dtTo,
                         nudCash.Value
