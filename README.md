@@ -1,5 +1,5 @@
 # Sports Complex Manager App
-#### Sports Complex Manager is an simple application that provides search and rent of sports halls by customer.
+#### Sports Complex Manager is a simple application that provides search and rent of sports halls by customer.
 
 **Business requirements:**
 - Each sports hall has own type, area and price;
