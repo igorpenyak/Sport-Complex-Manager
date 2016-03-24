@@ -95,7 +95,8 @@ BEGIN
 		RETURN;
 	END
 
-	IF (DATEPART(DAY, @dateStart) < DATEPART(DAY, GETDATE()))
+	--IF (DATEPART(DAY, @dateStart) < DATEPART(DAY, GETDATE()))
+	IF (@dateStart < GETDATE())
 	BEGIN
 		RAISERROR ('Date of rent cannot be in the past!', -- Message text.
 			   16, -- Severity,
