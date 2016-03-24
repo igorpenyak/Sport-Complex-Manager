@@ -39,6 +39,9 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpRents = new System.Windows.Forms.GroupBox();
+            this.dtpDate = new System.Windows.Forms.DateTimePicker();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.lblFilter = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
             this.cbRenter = new System.Windows.Forms.ComboBox();
             this.lblRenter = new System.Windows.Forms.Label();
@@ -55,9 +58,6 @@
             this.ColumnDateTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnContactPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblFilter = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
-            this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.menuMain.SuspendLayout();
             this.grpRents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRents)).BeginInit();
@@ -163,6 +163,36 @@
             this.grpRents.TabIndex = 1;
             this.grpRents.TabStop = false;
             this.grpRents.Text = "Rents";
+            // 
+            // dtpDate
+            // 
+            this.dtpDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtpDate.Location = new System.Drawing.Point(567, 288);
+            this.dtpDate.Name = "dtpDate";
+            this.dtpDate.Size = new System.Drawing.Size(116, 20);
+            this.dtpDate.TabIndex = 13;
+            this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
+            // 
+            // lblDate
+            // 
+            this.lblDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(564, 271);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(33, 13);
+            this.lblDate.TabIndex = 12;
+            this.lblDate.Text = "Date:";
+            // 
+            // lblFilter
+            // 
+            this.lblFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFilter.AutoSize = true;
+            this.lblFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblFilter.Location = new System.Drawing.Point(608, 249);
+            this.lblFilter.Name = "lblFilter";
+            this.lblFilter.Size = new System.Drawing.Size(35, 13);
+            this.lblFilter.TabIndex = 11;
+            this.lblFilter.Text = "Filter";
             // 
             // btnReset
             // 
@@ -319,36 +349,6 @@
             this.ColumnCost.HeaderText = "Sum Cost";
             this.ColumnCost.Name = "ColumnCost";
             this.ColumnCost.ReadOnly = true;
-            // 
-            // lblFilter
-            // 
-            this.lblFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFilter.AutoSize = true;
-            this.lblFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblFilter.Location = new System.Drawing.Point(601, 249);
-            this.lblFilter.Name = "lblFilter";
-            this.lblFilter.Size = new System.Drawing.Size(35, 13);
-            this.lblFilter.TabIndex = 11;
-            this.lblFilter.Text = "Filter";
-            // 
-            // lblDate
-            // 
-            this.lblDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(564, 271);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(33, 13);
-            this.lblDate.TabIndex = 12;
-            this.lblDate.Text = "Date:";
-            // 
-            // dtpDate
-            // 
-            this.dtpDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpDate.Location = new System.Drawing.Point(567, 288);
-            this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(116, 20);
-            this.dtpDate.TabIndex = 13;
-            this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
             // MainForm
             // 

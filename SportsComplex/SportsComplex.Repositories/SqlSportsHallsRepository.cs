@@ -45,7 +45,6 @@ namespace SportsComplex.Repositories
                                 },
                                 Area = (int)reader["Area"],
                                 Rate = (decimal)reader["Rate"],
-                                Status = (int)reader["Status"]
                             };
 
                             halls.Add(sportsHall);
@@ -57,7 +56,7 @@ namespace SportsComplex.Repositories
             return halls;
         }
 
-        public IEnumerable<SportsHall> GetFreeSportsHallsByFilter(SportsHallType sportsHallType, int minArea, int maxArea, decimal minRate, decimal maxRate)
+        public IEnumerable<SportsHall> GetSportsHallsByFilter(SportsHallType sportsHallType, int minArea, int maxArea, decimal minRate, decimal maxRate)
         {
             var sportsHalls = new List<SportsHall>();
 
@@ -70,7 +69,7 @@ namespace SportsComplex.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = getFreeHallsByFilter;
+                    command.CommandText = _getHallsByFilter;
 
                     command.Parameters.AddWithValue("@areaMin", minArea);
                     command.Parameters.AddWithValue("@areaMax", maxArea);
@@ -137,6 +136,7 @@ namespace SportsComplex.Repositories
                                 Area = (int)reader["Area"],
                                 Rate = (decimal)reader["Rate"]
                             };
+
                             sportsHalls.Add(sportsHall);
                         }
                     }
@@ -146,11 +146,10 @@ namespace SportsComplex.Repositories
             return sportsHalls;
         }
 
-        private const string getFreeHallsByFilter = @"SELECT c.Id, c.ClassTypeId as [TypeId], ct.Name as [TypeName], c.Area,                                            c.Rate, c.[Status]
+        private const string _getHallsByFilter = @"SELECT c.Id, c.ClassTypeId as [TypeId], ct.Name as [TypeName], c.Area,                                            c.Rate
 	                                                FROM [tblClass] c
 	                                                INNER JOIN [tblClassType] ct  ON c.ClassTypeId = ct.Id
-	                                                WHERE c.[Status] = 0 
-	                                                AND (c.Area BETWEEN @areaMin AND @areaMax)
+	                                                WHERE (c.Area BETWEEN @areaMin AND @areaMax)
 	                                                AND (c.Rate BETWEEN @rateMin AND @rateMax)";
     }
 }

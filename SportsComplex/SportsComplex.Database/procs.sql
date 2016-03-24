@@ -63,15 +63,6 @@ BEGIN
 		THROW 80001, 'Rent item was not found', 1; 
 	END
 
-	-- Set class status "Free"
-	UPDATE c
-	SET c.[Status] = 0
-	from tblClass c
-    INNER JOIN tblRent r ON c.Id = r.ClassId
-	WHERE r.Id = @rentID;
-	
-	PRINT 'CLass status changed';
-
 	-- Mark record as deleted
 	UPDATE tblRent 
 	SET Deleted = 1
@@ -95,7 +86,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	IF (@dateStart >= @dateEnd OR @dateStart < GETDATE())
+	IF (@dateStart >= @dateEnd)
 	BEGIN
 		RAISERROR ('Start date of rent cannot be greater or equal, than end date one.', -- Message text.
            16, -- Severity,
@@ -103,16 +94,24 @@ BEGIN
 		);
 		RETURN;
 	END
+
+	IF (DATEPART(DAY, @dateStart) < DATEPART(DAY, GETDATE()))
+	BEGIN
+		RAISERROR ('Date of rent cannot be in the past!', -- Message text.
+			   16, -- Severity,
+			   1
+			);
+			RETURN;
+	END
 	
 	BEGIN TRAN MakeRentTran
     WITH MARK N'Making a new rent record';
 
 	IF EXISTS (SELECT 1
 				FROM [SportsComplex].[dbo].[tblRent]
-				WHERE [ClassId] = @sportsHallId AND
-				NOT (@dateStart > DateEnd
-				or
-				@dateEnd < DateStart)
+				WHERE [ClassId] = @sportsHallId 
+				AND
+				(@dateStart <= [DateEnd] and @dateEnd >= [DateStart])
 				AND [Deleted] = 0)
 	BEGIN
 		;THROW 70004, N'Class is rented.', 1;
@@ -134,15 +133,6 @@ BEGIN
 				0);
 
 	SET @rentId = SCOPE_IDENTITY();
-
-	-- Set class status "Free"
-	UPDATE c
-	SET c.[Status] = 0
-	from tblClass c
-    INNER JOIN tblRent r ON c.Id = r.ClassId
-	WHERE r.Id = @rentId;
-
-	PRINT 'CLass status changed';
 
 	COMMIT TRAN MakeRentTran;
 END

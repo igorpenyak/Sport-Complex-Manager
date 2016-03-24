@@ -14,8 +14,7 @@ CREATE TABLE tblClass (
 	Id INT NOT NULL IDENTITY(1, 1),
 	ClassTypeId INT NOT NULL,
 	Area INT NOT NULL,
-	Rate NUMERIC(18, 4) NOT NULL,
-	[Status] INT NOT NULL, -- 0 - free, 1 - reserved
+	Rate NUMERIC(18, 4) NOT NULL
 	CONSTRAINT PK_tblClass_Id PRIMARY KEY (Id),
 	CONSTRAINT FK_tblClass_ClassTypeId_tblClassType_Id FOREIGN KEY (ClassTypeId) REFERENCES tblClassType (Id)
 );

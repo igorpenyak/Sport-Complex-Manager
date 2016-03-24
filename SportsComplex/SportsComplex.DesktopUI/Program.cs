@@ -19,13 +19,13 @@ namespace SportsComplex.DesktopUI
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Add handler for UI thread exceptions
-            //Application.ThreadException += new ThreadExceptionEventHandler(UIThreadException);
+            Application.ThreadException += new ThreadExceptionEventHandler(UIThreadException);
 
             // Force all WinForms errors to go through handler
-            //Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
             // This handler is for catching non-UI thread exceptions
-            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
             LoginForm frmLogin = new LoginForm();
             if (frmLogin.ShowDialog() == DialogResult.Cancel)
@@ -63,7 +63,7 @@ namespace SportsComplex.DesktopUI
         {
             try
             {
-                MessageBox.Show("Unhandled exception catched.\n Application is going to close now.");
+                MessageBox.Show(t.Exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch
             {
@@ -74,7 +74,7 @@ namespace SportsComplex.DesktopUI
                 }
                 finally
                 {
-                    //Application.Exit();
+                    Application.Exit();
                 }
             }
 

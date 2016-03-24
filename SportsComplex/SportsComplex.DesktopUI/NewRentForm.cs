@@ -13,17 +13,17 @@ namespace SportsComplex.DesktopUI
         public NewRentForm()
         {
             InitializeComponent();
-            _sportsHallTypesRepository = new SqlSportsHallTypesRepository(connString);
-            _sportsHallsRepository = new SqlSportsHallsRepository(connString);
-            _rentersRepository = new SqlRentersRepository(connString);
-            _rentsRepository = new SqlRentsRepository(connString);
+            _sportsHallTypesRepository = new SqlSportsHallTypesRepository(_connString);
+            _sportsHallsRepository = new SqlSportsHallsRepository(_connString);
+            _rentersRepository = new SqlRentersRepository(_connString);
+            _rentsRepository = new SqlRentsRepository(_connString);
         }
 
         public int RentId { get; private set; }
 
         private void NewRentForm_Load(object sender, EventArgs e)
         {
-            var halls = _sportsHallsRepository.GetFreeSportsHalls();
+            var halls = _sportsHallsRepository.SelectAll();
             var renters = _rentersRepository.SelectAll();
 
             // Fill renters combobox.
@@ -41,6 +41,8 @@ namespace SportsComplex.DesktopUI
             nudAreaMax.Value = halls.Max((h) => h.Area);
             nudRateMin.Value = halls.Min((h) => h.Rate);
             nudRateMax.Value = halls.Max((h) => h.Rate);
+
+            dtpTimeFrom.Value = dtpTimeFrom.Value.AddMinutes(5);
             dtpTimeTo.Value = dtpTimeTo.Value.AddHours(1);
         }
 
@@ -74,7 +76,7 @@ namespace SportsComplex.DesktopUI
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            var halls = _sportsHallsRepository.GetFreeSportsHalls();
+            var halls = _sportsHallsRepository.SelectAll();
 
             // Update UI.
             UpdateSportsHallsDataGridView(halls);
@@ -87,9 +89,58 @@ namespace SportsComplex.DesktopUI
             cbClassType.Items.Clear();
         }
 
-        private void nudAreaMin_ValueChanged(object sender, EventArgs e)
+        private void btnNewRent_Click(object sender, EventArgs e)
         {
-            var halls = _sportsHallsRepository.GetFreeSportsHallsByFilter(
+            if (dgvSportsHalls.SelectedRows.Count > 0)
+            {
+                int index = dgvSportsHalls.SelectedRows[0].Index;
+                if (cbRenter.SelectedIndex > -1)
+                {
+                    DateTime dtFrom = dtpDate.Value.Date + dtpTimeFrom.Value.TimeOfDay;
+                    DateTime dtTo = dtpDate.Value.Date + dtpTimeTo.Value.TimeOfDay;
+
+                    RentId = _rentsRepository.MakeRent(
+                        ((Renter)(cbRenter.SelectedItem)).Id,
+                        (int)dgvSportsHalls[0, index].Value,
+                        dtFrom,
+                        dtTo,
+                        Convert.ToDecimal(lblSumCash.Text)
+                    );
+
+                    this.DialogResult = DialogResult.OK;
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Please, chose a renter", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please, chose sports hall", "Info");
+            }
+        }
+
+        
+
+        private void dtpTimeFrom_ValueChanged(object sender, EventArgs e)
+        {
+            if (dgvSportsHalls.SelectedRows.Count > 0)
+            {
+                int index = dgvSportsHalls.SelectedRows[0].Index;
+                decimal rate = (decimal)dgvSportsHalls["ColumnRate", index].Value;
+                TimeSpan ts = dtpTimeFrom.Value - dtpTimeTo.Value;
+                _costTotal =  rate * (decimal)(ts.TotalMinutes / 60);
+
+                lblSumCash.Text = Math.Abs(_costTotal).ToString();
+            }
+        }
+
+        private decimal _costTotal = 0.0m;
+
+        private void btnSearchSportsHalls_Click(object sender, EventArgs e)
+        {
+            var halls = _sportsHallsRepository.GetSportsHallsByFilter(
                         (SportsHallType)cbClassType.SelectedItem,
                         (int)nudAreaMin.Value,
                         (int)nudAreaMax.Value,
@@ -101,43 +152,11 @@ namespace SportsComplex.DesktopUI
             UpdateSportsHallsDataGridView(halls);
         }
 
-        private void btnNewRent_Click(object sender, EventArgs e)
-        {
-            if (dgvSportsHalls.SelectedRows.Count > 0)
-            {
-                int index = dgvSportsHalls.SelectedRows[0].Index;
-                if (cbRenter.SelectedIndex > -1 && dtpDate.Value >= DateTime.Today && nudCash.Value != 0)
-                {
-                    DateTime dtFrom = dtpDate.Value.Date + dtpTimeFrom.Value.TimeOfDay;
-                    DateTime dtTo = dtpDate.Value.Date + dtpTimeTo.Value.TimeOfDay;
-
-                    RentId = _rentsRepository.MakeRent(
-                        ((Renter)(cbRenter.SelectedItem)).Id,
-                        _rentersRepository.GetRenterById((int)dgvSportsHalls["ColumnId", index].Value).Id,
-                        dtFrom,
-                        dtTo,
-                        nudCash.Value
-                    );
-
-                    this.DialogResult = DialogResult.OK;
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Invalid input parameters", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please, chose sports hall", "Info");
-            }
-        }
-
         private SqlSportsHallsRepository _sportsHallsRepository;
         private SqlSportsHallTypesRepository _sportsHallTypesRepository;
         private SqlRentersRepository _rentersRepository;
         private SqlRentsRepository _rentsRepository;
 
-        private string connString = ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString;
+        private string _connString = ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString;
     }
 }

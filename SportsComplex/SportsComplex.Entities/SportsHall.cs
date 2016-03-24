@@ -12,7 +12,6 @@ namespace SportsComplex.Entities
         public SportsHallType Type { get; set; }
         public int Area { get; set; }
         public decimal Rate { get; set; }
-        public int Status { get; set; }
 
         public override string ToString()
         {

@@ -2,6 +2,7 @@ USE [SportsComplex];
 
 DROP VIEW vPriceList;
 GO
+
 DROP PROC spCheckUser;
 DROP PROC spRemoveRent;
 DROP PROC spMakeRent;

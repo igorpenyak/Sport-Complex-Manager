@@ -11,6 +11,6 @@ namespace SportsComplex.Repositories
     {
         IEnumerable<SportsHall> SelectAll();
         IEnumerable<SportsHall> GetFreeSportsHalls();
-        IEnumerable<SportsHall> GetFreeSportsHallsByFilter(SportsHallType sportstHallType, int minArea, int maxArea, decimal minRate, decimal maxRate);
+        IEnumerable<SportsHall> GetSportsHallsByFilter(SportsHallType sportstHallType, int minArea, int maxArea, decimal minRate, decimal maxRate);
     }
 }

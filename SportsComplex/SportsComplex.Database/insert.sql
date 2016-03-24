@@ -15,19 +15,19 @@ INSERT INTO tblClassType (Id, Name) VALUES
 SET IDENTITY_INSERT tblClassType OFF
 
 SET IDENTITY_INSERT tblClass ON
-INSERT INTO tblClass(Id, ClassTypeId, Area, Rate, [Status]) VALUES
-		(1, 1, 250, 15, 0),
-		(2, 1, 225, 12, 0),
-		(3, 9, 60, 10, 1),
-		(4, 10, 180, 20, 0),
-		(5, 8, 80, 20, 1),
-		(6, 5, 100, 23, 0),
-		(7, 4, 200, 40, 1),
-		(8, 3, 855, 30, 1),
-		(9, 6, 120, 25, 0),
-		(10, 2, 250, 15, 0),
-		(11, 2, 225, 12, 0),
-		(12, 7, 115, 35, 0)
+INSERT INTO tblClass(Id, ClassTypeId, Area, Rate) VALUES
+		(1, 1, 250, 15),
+		(2, 1, 225, 12),
+		(3, 9, 60, 10),
+		(4, 10, 180, 20),
+		(5, 8, 80, 20),
+		(6, 5, 100, 23),
+		(7, 4, 200, 40),
+		(8, 3, 855, 30),
+		(9, 6, 120, 25),
+		(10, 2, 250, 15),
+		(11, 2, 225, 12),
+		(12, 7, 115, 35)
 SET IDENTITY_INSERT tblClass OFF
 
 SET IDENTITY_INSERT tblRenter ON

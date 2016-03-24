@@ -21,7 +21,6 @@ namespace SportsComplex.Repositories
 	                                      ,ct.Name AS [ClassName]
 	                                      ,c.Area AS [ClassArea]
 	                                      ,c.Rate AS [ClassRate]
-                                          ,c.Status [ClassStatus]
                                           ,rent.[DateStart]
                                           ,rent.[DateEnd]
                                           ,rent.[Cost]
@@ -30,7 +29,9 @@ namespace SportsComplex.Repositories
                                           INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
                                           INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
-                                          WHERE (@Date BETWEEN rent.DateStart AND DateEnd) AND rent.Deleted = 0";
+                                          WHERE (@Date <= rent.DateEnd 
+                                                AND DATEPART(DAY, @Date) = DATEPART(DAY, rent.DateStart))
+                                          AND rent.Deleted = 0";
 
         const string getAllRentsQuery = @"SELECT rent.[Id]
                                           ,rent.[RenterId]
@@ -42,7 +43,6 @@ namespace SportsComplex.Repositories
 	                                      ,ct.Name AS [ClassName]
 	                                      ,c.Area AS [ClassArea]
 	                                      ,c.Rate AS [ClassRate]
-                                          ,c.Status [ClassStatus]
                                           ,rent.[DateStart]
                                           ,rent.[DateEnd]
                                           ,rent.[Cost]
@@ -62,7 +62,6 @@ namespace SportsComplex.Repositories
 	                                      ,ct.Name AS [ClassName]
 	                                      ,c.Area AS [ClassArea]
 	                                      ,c.Rate AS [ClassRate]
-                                          ,c.Status [ClassStatus]
                                           ,rent.[DateStart]
                                           ,rent.[DateEnd]
                                           ,rent.[Cost]
@@ -114,8 +113,7 @@ namespace SportsComplex.Repositories
                                         Name = (string)reader["ClassName"]
                                     },
                                     Area = (int)reader["ClassArea"],
-                                    Rate = (decimal)reader["ClassRate"],
-                                    Status = (int)reader["ClassStatus"]
+                                    Rate = (decimal)reader["ClassRate"]
                                 },
                                 DateStart = (DateTime)reader["DateStart"],
                                 DateEnd = (DateTime)reader["DateEnd"],
@@ -202,8 +200,7 @@ namespace SportsComplex.Repositories
                                         Name = (string)reader["ClassName"]
                                     },
                                     Area = (int)reader["ClassArea"],
-                                    Rate = (decimal)reader["ClassRate"],
-                                    Status = (int)reader["ClassStatus"]
+                                    Rate = (decimal)reader["ClassRate"]
                                 },
                                 DateStart = (DateTime)reader["DateStart"],
                                 DateEnd = (DateTime)reader["DateEnd"],
@@ -257,8 +254,7 @@ namespace SportsComplex.Repositories
                                         Name = (string)reader["ClassName"]
                                     },
                                     Area = (int)reader["ClassArea"],
-                                    Rate = (decimal)reader["ClassRate"],
-                                    Status = (int)reader["ClassStatus"]
+                                    Rate = (decimal)reader["ClassRate"]
                                 },
                                 DateStart = (DateTime)reader["DateStart"],
                                 DateEnd = (DateTime)reader["DateEnd"],
