@@ -14,7 +14,7 @@ CREATE TABLE tblClass (
 	Id INT NOT NULL IDENTITY(1, 1),
 	ClassTypeId INT NOT NULL,
 	Area INT NOT NULL,
-	Rate NUMERIC(18, 4) NOT NULL
+	Rate NUMERIC(18, 2) NOT NULL
 	CONSTRAINT PK_tblClass_Id PRIMARY KEY (Id),
 	CONSTRAINT FK_tblClass_ClassTypeId_tblClassType_Id FOREIGN KEY (ClassTypeId) REFERENCES tblClassType (Id)
 );
@@ -36,7 +36,7 @@ CREATE TABLE tblRent (
 	ClassId INT NOT NULL,
 	DateStart DATETIME NOT NULL,
 	DateEnd DATETIME NOT NULL,
-	Cost NUMERIC(18, 4) NOT NULL,
+	Cost NUMERIC(18, 2) NOT NULL,
 	Deleted BIT NOT NULL CONSTRAINT [DF_tblRent_Deleted] DEFAULT 0,
 	CONSTRAINT PK_tblRent_Id PRIMARY KEY (Id),
 	CONSTRAINT FK_tblRent_RenterId_tblRenter_Id FOREIGN KEY (RenterId) REFERENCES tblRenter (Id),

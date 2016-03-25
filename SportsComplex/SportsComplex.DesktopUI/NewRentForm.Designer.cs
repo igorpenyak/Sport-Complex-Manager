@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             this.grbNewRent = new System.Windows.Forms.GroupBox();
+            this.lblSumCash = new System.Windows.Forms.Label();
             this.dtpTimeTo = new System.Windows.Forms.DateTimePicker();
             this.lblTimeTo = new System.Windows.Forms.Label();
             this.dtpTimeFrom = new System.Windows.Forms.DateTimePicker();
             this.lblTimeFrom = new System.Windows.Forms.Label();
             this.grbSearch = new System.Windows.Forms.GroupBox();
+            this.btnSearchSportsHalls = new System.Windows.Forms.Button();
             this.nudAreaMax = new System.Windows.Forms.NumericUpDown();
             this.nudRateMax = new System.Windows.Forms.NumericUpDown();
             this.nudRateMin = new System.Windows.Forms.NumericUpDown();
@@ -57,8 +59,6 @@
             this.ColumnRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNewRent = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnSearchSportsHalls = new System.Windows.Forms.Button();
-            this.lblSumCash = new System.Windows.Forms.Label();
             this.grbNewRent.SuspendLayout();
             this.grbSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAreaMax)).BeginInit();
@@ -90,6 +90,17 @@
             this.grbNewRent.Size = new System.Drawing.Size(327, 404);
             this.grbNewRent.TabIndex = 0;
             this.grbNewRent.TabStop = false;
+            // 
+            // lblSumCash
+            // 
+            this.lblSumCash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSumCash.BackColor = System.Drawing.SystemColors.Control;
+            this.lblSumCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSumCash.Location = new System.Drawing.Point(270, 377);
+            this.lblSumCash.Name = "lblSumCash";
+            this.lblSumCash.Size = new System.Drawing.Size(48, 16);
+            this.lblSumCash.TabIndex = 38;
+            this.lblSumCash.Text = "0";
             // 
             // dtpTimeTo
             // 
@@ -153,6 +164,16 @@
             this.grbSearch.TabIndex = 32;
             this.grbSearch.TabStop = false;
             this.grbSearch.Text = "Search";
+            // 
+            // btnSearchSportsHalls
+            // 
+            this.btnSearchSportsHalls.Location = new System.Drawing.Point(162, 87);
+            this.btnSearchSportsHalls.Name = "btnSearchSportsHalls";
+            this.btnSearchSportsHalls.Size = new System.Drawing.Size(142, 20);
+            this.btnSearchSportsHalls.TabIndex = 19;
+            this.btnSearchSportsHalls.Text = "Search";
+            this.btnSearchSportsHalls.UseVisualStyleBackColor = true;
+            this.btnSearchSportsHalls.Click += new System.EventHandler(this.btnSearchSportsHalls_Click);
             // 
             // nudAreaMax
             // 
@@ -290,7 +311,7 @@
             this.lblCash.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblCash.AutoSize = true;
             this.lblCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblCash.Location = new System.Drawing.Point(172, 377);
+            this.lblCash.Location = new System.Drawing.Point(163, 377);
             this.lblCash.Name = "lblCash";
             this.lblCash.Size = new System.Drawing.Size(110, 16);
             this.lblCash.TabIndex = 26;
@@ -369,9 +390,9 @@
             // btnNewRent
             // 
             this.btnNewRent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNewRent.Location = new System.Drawing.Point(184, 423);
+            this.btnNewRent.Location = new System.Drawing.Point(179, 423);
             this.btnNewRent.Name = "btnNewRent";
-            this.btnNewRent.Size = new System.Drawing.Size(75, 23);
+            this.btnNewRent.Size = new System.Drawing.Size(77, 23);
             this.btnNewRent.TabIndex = 1;
             this.btnNewRent.Text = "OK";
             this.btnNewRent.UseVisualStyleBackColor = true;
@@ -381,35 +402,12 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(265, 423);
+            this.btnCancel.Location = new System.Drawing.Point(263, 423);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(77, 23);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // btnSearchSportsHalls
-            // 
-            this.btnSearchSportsHalls.Location = new System.Drawing.Point(162, 87);
-            this.btnSearchSportsHalls.Name = "btnSearchSportsHalls";
-            this.btnSearchSportsHalls.Size = new System.Drawing.Size(142, 20);
-            this.btnSearchSportsHalls.TabIndex = 19;
-            this.btnSearchSportsHalls.Text = "Search";
-            this.btnSearchSportsHalls.UseVisualStyleBackColor = true;
-            this.btnSearchSportsHalls.Click += new System.EventHandler(this.btnSearchSportsHalls_Click);
-            // 
-            // lblSumCash
-            // 
-            this.lblSumCash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSumCash.AutoSize = true;
-            this.lblSumCash.BackColor = System.Drawing.SystemColors.Control;
-            this.lblSumCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSumCash.Location = new System.Drawing.Point(288, 377);
-            this.lblSumCash.Name = "lblSumCash";
-            this.lblSumCash.Size = new System.Drawing.Size(16, 16);
-            this.lblSumCash.TabIndex = 38;
-            this.lblSumCash.Text = "0";
-            this.lblSumCash.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // NewRentForm
             // 

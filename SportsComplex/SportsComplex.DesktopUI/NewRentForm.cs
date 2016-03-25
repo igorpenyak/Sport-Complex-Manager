@@ -132,7 +132,7 @@ namespace SportsComplex.DesktopUI
                 TimeSpan ts = dtpTimeFrom.Value - dtpTimeTo.Value;
                 _costTotal =  rate * (decimal)(ts.TotalMinutes / 60);
 
-                lblSumCash.Text = Math.Abs(_costTotal).ToString();
+                lblSumCash.Text = Math.Abs(Math.Round(_costTotal, 2, MidpointRounding.AwayFromZero)).ToString();
             }
         }
 

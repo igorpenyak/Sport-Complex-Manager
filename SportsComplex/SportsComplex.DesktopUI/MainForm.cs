@@ -82,7 +82,7 @@ namespace SportsComplex.DesktopUI
                         MessageBox.Show(String.Format("Change: {0}", moneyChange), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
-                    UpdateRentsDataGridView(_rentsRepository.GetRentsOnDate(DateTime.Now));
+                    UpdateRentsDataGridView(_rentsRepository.GetRentsOnDate(dtpDate.Value));
                 }
             }
         }

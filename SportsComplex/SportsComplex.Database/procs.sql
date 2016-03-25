@@ -46,16 +46,11 @@ GO
 CREATE PROC spRemoveRent
 
 	@rentID INT,
-	@moneyChange NUMERIC(18, 4) OUT
+	@moneyChange NUMERIC(18, 2) OUT
 
 AS
 BEGIN
 	SET NOCOUNT ON;
-
-	SELECT @moneyChange = (Cost - DATEDIFF(HOUR, GETDATE(), r.DateEnd) * c.Rate)
-	FROM tblRent r
-	INNER JOIN tblClass c ON r.ClassId = c.Id
-	WHERE r.id = @rentID;
 
 	IF NOT EXISTS(SELECT 1 FROM tblRent WHERE Id = @rentID AND [Deleted] = 0)
 	BEGIN
@@ -63,6 +58,27 @@ BEGIN
 		THROW 80001, 'Rent item was not found', 1; 
 	END
 
+	DECLARE @DateStart DATETIME;
+	DECLARE @DateEnd DATETIME;
+	DECLARE @Rate NUMERIC(18, 2);
+	DECLARE @Cost NUMERIC(18, 2);
+
+	SELECT @DateStart = r.DateStart, @DateEnd = r.DateEnd, @Rate = c.Rate, @Cost = r.Cost
+	FROM tblRent r
+	INNER JOIN tblClass c ON r.ClassId = c.Id
+	WHERE r.id = @rentID;
+
+	-- Calc money change
+	IF (GETDATE() < @DateStart)
+	BEGIN
+		SET @moneyChange = @Cost;	
+	END
+	ELSE
+	BEGIN
+		SET @moneyChange = ROUND(@Cost - (@Cost - (DATEDIFF(MINUTE, GETDATE(), @DateEnd) * @Rate) / 60), 2);
+	END
+
+	
 	-- Mark record as deleted
 	UPDATE tblRent 
 	SET Deleted = 1
@@ -78,7 +94,7 @@ CREATE PROC [dbo].[spMakeRent]
 	@sportsHallId INT,
 	@dateStart DATETIME,
 	@dateEnd DATETIME,
-	@cost NUMERIC(18,4),
+	@cost NUMERIC(18,2),
 
 	@rentId INT OUT
 
@@ -137,5 +153,45 @@ BEGIN
 
 	COMMIT TRAN MakeRentTran;
 END
+GO
 
+CREATE PROC spGetRents
+
+	@Date DATETIME
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	-- Mark record as deleted
+	UPDATE tblRent 
+	SET Deleted = 1
+	WHERE tblRent.DateEnd < GETDATE();
+
+	PRINT 'Rents marked as deleted';
+
+	SELECT 
+	     rent.[Id]
+        ,rent.[RenterId]
+	    ,renter.FirstName AS [RenterFirstName]
+	    ,renter.LastName AS [RenterLastName]
+	    ,renter.Phone AS [RenterPhone]
+        ,rent.[ClassId]
+	    ,ct.Id AS [ClassTypeId]
+	    ,ct.Name AS [ClassName]
+	    ,c.Area AS [ClassArea]
+	    ,c.Rate AS [ClassRate]
+        ,rent.[DateStart]
+        ,rent.[DateEnd]
+        ,rent.[Cost]
+        ,rent.[Deleted]
+    FROM [tblRent] rent
+        INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
+        INNER JOIN [tblClass] c ON rent.ClassId = c.Id
+        INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
+    WHERE (@Date <= rent.DateEnd 
+            AND DATEPART(DAY, @Date) = DATEPART(DAY, rent.DateStart))
+        AND rent.Deleted = 0
+
+END
 GO

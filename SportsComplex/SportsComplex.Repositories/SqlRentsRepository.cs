@@ -70,7 +70,7 @@ namespace SportsComplex.Repositories
                                           INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
                                           INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
-                                          WHERE renter.Id = @renterId";
+                                          WHERE renter.Id = @renterId AND rent.[Deleted] = 0";
         public SqlRentsRepository(string connectionString)
         {
             ConnectionString = connectionString;
@@ -86,8 +86,8 @@ namespace SportsComplex.Repositories
                 using (SqlCommand command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = getRentsOnDateQuery;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "spGetRents";
                     command.Parameters.AddWithValue("@Date", inputDate);
 
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -143,7 +143,7 @@ namespace SportsComplex.Repositories
                     command.CommandText = "spRemoveRent";
 
                     command.Parameters.Add(new SqlParameter("@moneyChange",
-                                                        SqlDbType.Decimal,
+                                                        SqlDbType.Money,
                                                         0,
                                                         ParameterDirection.Output,
                                                         false,
@@ -155,7 +155,7 @@ namespace SportsComplex.Repositories
                     command.Parameters.AddWithValue("@rentID", rentId);
 
                     command.ExecuteNonQuery();
-                    decimal moneyChange = (decimal)command.Parameters["@moneyChange"].Value;
+                    decimal moneyChange = Convert.ToDecimal(command.Parameters["@moneyChange"].Value);
 
                     return moneyChange;
                 }
