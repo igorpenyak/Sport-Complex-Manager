@@ -15,7 +15,11 @@ namespace SportsComplex.Repositories
 
         IEnumerable<RentItem> GetRentsByRenterId(int renterId);
 
+        RentItem GetRentById(int rentId);
+
         int MakeRent(int renterId, int sportsHallId, DateTime dateStart, DateTime dateEnd, decimal Cost);
+
+        void ExtendRent(int rentId, DateTime newEndDate, decimal overpay);
 
         // Returns money change
         decimal Remove(int rentId);

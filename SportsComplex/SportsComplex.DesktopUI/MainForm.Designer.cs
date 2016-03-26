@@ -104,6 +104,7 @@
             // sportsHallsToolStripMenuItem
             // 
             this.sportsHallsToolStripMenuItem.Name = "sportsHallsToolStripMenuItem";
+            this.sportsHallsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.sportsHallsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.sportsHallsToolStripMenuItem.Text = "Sports Halls...";
             this.sportsHallsToolStripMenuItem.Click += new System.EventHandler(this.sportsHallsToolStripMenuItem_Click);
@@ -111,6 +112,7 @@
             // rentersToolStripMenuItem
             // 
             this.rentersToolStripMenuItem.Name = "rentersToolStripMenuItem";
+            this.rentersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.rentersToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.rentersToolStripMenuItem.Text = "Renters...";
             // 
@@ -247,6 +249,7 @@
             this.btnExtendRent.TabIndex = 5;
             this.btnExtendRent.Text = "Extend";
             this.btnExtendRent.UseVisualStyleBackColor = true;
+            this.btnExtendRent.Click += new System.EventHandler(this.btnExtendRent_Click);
             // 
             // btnNewRent
             // 

@@ -50,7 +50,8 @@ namespace SportsComplex.Repositories
                                           FROM [tblRent] rent
                                           INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
-                                          INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id";
+                                          INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
+                                          WHERE rent.[Deleted] = 0";
 
         const string getRentsByRenterIdQuery = @"SELECT rent.[Id]
                                           ,rent.[RenterId]
@@ -71,6 +72,27 @@ namespace SportsComplex.Repositories
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
                                           INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
                                           WHERE renter.Id = @renterId AND rent.[Deleted] = 0";
+
+        const string getRentByIdQuery = @"SELECT rent.[Id]
+                                          ,rent.[RenterId]
+	                                      ,renter.FirstName AS [RenterFirstName]
+	                                      ,renter.LastName AS [RenterLastName]
+	                                      ,renter.Phone AS [RenterPhone]
+                                          ,rent.[ClassId]
+	                                      ,ct.Id AS [ClassTypeId]
+	                                      ,ct.Name AS [ClassName]
+	                                      ,c.Area AS [ClassArea]
+	                                      ,c.Rate AS [ClassRate]
+                                          ,rent.[DateStart]
+                                          ,rent.[DateEnd]
+                                          ,rent.[Cost]
+                                          ,rent.[Deleted]
+                                          FROM [tblRent] rent
+                                          INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
+                                          INNER JOIN [tblClass] c ON rent.ClassId = c.Id
+                                          INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
+                                          WHERE rent.Id = @rentId AND rent.[Deleted] = 0";
+
         public SqlRentsRepository(string connectionString)
         {
             ConnectionString = connectionString;
@@ -271,6 +293,15 @@ namespace SportsComplex.Repositories
             return rents;
         }
 
+        /// <summary>
+        /// Make rent of sports hall.
+        /// </summary>
+        /// <param name="renterId">Id of renter.</param>
+        /// <param name="sportsHallId">Id of sports hall</param>
+        /// <param name="dateStart">Rent start date</param>
+        /// <param name="dateEnd">Rent finish date</param>
+        /// <param name="Cost">Rent summary cost. Depends of rent time period</param>
+        /// <returns>Id of new rent</returns>
         public int MakeRent(int renterId, int sportsHallId, DateTime dateStart, DateTime dateEnd, decimal Cost)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
@@ -306,6 +337,82 @@ namespace SportsComplex.Repositories
                     return rentId;
                 }
             }
+        }
+
+        public void ExtendRent(int rentId, DateTime newEndDate, decimal overpay)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "spExtendRent";
+
+                    command.Parameters.AddWithValue("@rentId", rentId);
+                    command.Parameters.AddWithValue("@newDateEnd", newEndDate);
+                    command.Parameters.AddWithValue("@overpay", overpay);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public RentItem GetRentById(int rentId)
+        {
+            var rents = new List<RentItem>();
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = getRentByIdQuery;
+
+                    command.Parameters.AddWithValue("@rentId", rentId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var rentItem = new RentItem()
+                            {
+                                Id = (int)reader["Id"],
+                                Renter = new Renter()
+                                {
+                                    Id = (int)reader["RenterId"],
+                                    FirstName = (string)reader["RenterFirstName"],
+                                    LastName = (string)reader["RenterLastName"],
+                                    Phone = (string)reader["RenterPhone"]
+                                },
+                                SportsHall = new SportsHall()
+                                {
+                                    Id = (int)reader["ClassId"],
+                                    Type = new SportsHallType()
+                                    {
+                                        Id = (int)reader["ClassTypeId"],
+                                        Name = (string)reader["ClassName"]
+                                    },
+                                    Area = (int)reader["ClassArea"],
+                                    Rate = (decimal)reader["ClassRate"]
+                                },
+                                DateStart = (DateTime)reader["DateStart"],
+                                DateEnd = (DateTime)reader["DateEnd"],
+                                Cost = (decimal)reader["Cost"],
+                                Deleted = (bool)reader["Deleted"]
+                            };
+
+                            rents.Add(rentItem);
+                        }
+                    }
+                }
+            }
+
+            return (rents.Count > 0) ? rents[0] : null;
         }
     }
 }

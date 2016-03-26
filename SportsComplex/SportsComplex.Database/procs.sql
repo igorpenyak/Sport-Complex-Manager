@@ -89,6 +89,48 @@ BEGIN
 END
 GO
 
+CREATE PROC spGetRents
+
+	@Date DATETIME
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	-- Mark record as deleted
+	UPDATE tblRent 
+	SET Deleted = 1
+	WHERE tblRent.DateEnd < GETDATE();
+
+	PRINT 'Rents marked as deleted';
+
+	SELECT 
+	     rent.[Id]
+        ,rent.[RenterId]
+	    ,renter.FirstName AS [RenterFirstName]
+	    ,renter.LastName AS [RenterLastName]
+	    ,renter.Phone AS [RenterPhone]
+        ,rent.[ClassId]
+	    ,ct.Id AS [ClassTypeId]
+	    ,ct.Name AS [ClassName]
+	    ,c.Area AS [ClassArea]
+	    ,c.Rate AS [ClassRate]
+        ,rent.[DateStart]
+        ,rent.[DateEnd]
+        ,rent.[Cost]
+        ,rent.[Deleted]
+    FROM [tblRent] rent
+        INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
+        INNER JOIN [tblClass] c ON rent.ClassId = c.Id
+        INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
+    WHERE (@Date <= rent.DateEnd 
+            AND DATEPART(DAY, @Date) = DATEPART(DAY, rent.DateStart))
+        AND rent.Deleted = 0
+	ORDER BY rent.DateStart;
+
+END
+GO
+
 CREATE PROC [dbo].[spMakeRent]
 	@renterId INT,
 	@sportsHallId INT,
@@ -155,43 +197,55 @@ BEGIN
 END
 GO
 
-CREATE PROC spGetRents
+CREATE PROC spExtendRent
+	@rentId INT,
+	@newDateEnd DATETIME,
+	@overpay NUMERIC(18,2)
 
-	@Date DATETIME
-
-AS
+AS	
 BEGIN
 	SET NOCOUNT ON;
-	
-	-- Mark record as deleted
-	UPDATE tblRent 
-	SET Deleted = 1
-	WHERE tblRent.DateEnd < GETDATE();
 
-	PRINT 'Rents marked as deleted';
+	DECLARE @dateEnd DATETIME;
+	DECLARE @sportsHallId INT;
 
-	SELECT 
-	     rent.[Id]
-        ,rent.[RenterId]
-	    ,renter.FirstName AS [RenterFirstName]
-	    ,renter.LastName AS [RenterLastName]
-	    ,renter.Phone AS [RenterPhone]
-        ,rent.[ClassId]
-	    ,ct.Id AS [ClassTypeId]
-	    ,ct.Name AS [ClassName]
-	    ,c.Area AS [ClassArea]
-	    ,c.Rate AS [ClassRate]
-        ,rent.[DateStart]
-        ,rent.[DateEnd]
-        ,rent.[Cost]
-        ,rent.[Deleted]
-    FROM [tblRent] rent
-        INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
-        INNER JOIN [tblClass] c ON rent.ClassId = c.Id
-        INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
-    WHERE (@Date <= rent.DateEnd 
-            AND DATEPART(DAY, @Date) = DATEPART(DAY, rent.DateStart))
-        AND rent.Deleted = 0
+	-- Check
+	IF NOT EXISTS(SELECT 1 FROM tblRent WHERE Id = @rentId AND [Deleted] = 0)
+	BEGIN
+		;
+		THROW 80001, 'Rent item was not found', 1; 
+	END
 
-END
+	-- Get current DateEnd of rent by @rentId
+	SELECT @DateEnd = r.DateEnd, @sportsHallId = c.Id
+	FROM tblRent r
+	INNER JOIN tblClass c ON r.ClassId = c.Id
+	WHERE r.Id = @rentId;
+
+	IF (@newDateEnd <= @dateEnd)
+	BEGIN
+		RAISERROR ('Extended date of rent cannot be less or equal than current end date.', -- Message text.
+           16, -- Severity,
+           1
+		);
+		RETURN;
+	END
+
+	IF EXISTS (SELECT 1
+				FROM [tblRent]
+				WHERE [ClassId] = @sportsHallId 
+				AND
+				(@dateEnd <= [DateEnd] and @newDateEnd >= [DateStart])
+				AND [Deleted] = 0)
+	BEGIN
+		;THROW 70004, N'Cannot extend rent. Time period is used by another rent item.', 1;
+	END
+
+	-- Update rent info(new end date)
+	UPDATE tblRent
+	SET 
+		DateEnd = @newDateEnd,
+		Cost = Cost + @overpay
+	WHERE Id = @rentId
+END 
 GO

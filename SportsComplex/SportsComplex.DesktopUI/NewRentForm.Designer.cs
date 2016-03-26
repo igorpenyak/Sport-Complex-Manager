@@ -101,6 +101,7 @@
             this.lblSumCash.Size = new System.Drawing.Size(48, 16);
             this.lblSumCash.TabIndex = 38;
             this.lblSumCash.Text = "0";
+            this.lblSumCash.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // dtpTimeTo
             // 
@@ -419,7 +420,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnNewRent);
             this.Controls.Add(this.grbNewRent);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewRentForm";

@@ -136,6 +136,7 @@ namespace SportsComplex.DesktopUI
         }
 
         private string connString = ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString;
+        
         // Repositories.
         private SqlRentsRepository _rentsRepository;
         private SqlRentersRepository _rentersRepository;
@@ -145,6 +146,22 @@ namespace SportsComplex.DesktopUI
             var rents = _rentsRepository.GetRentsOnDate(dtpDate.Value);
 
             UpdateRentsDataGridView(rents);
+        }
+
+        private void btnExtendRent_Click(object sender, EventArgs e)
+        {
+            if (dgvRents.SelectedRows.Count > 0)
+            {
+                int rentId = (int)dgvRents.SelectedRows[0].Cells[0].Value;
+                var rent = _rentsRepository.GetRentById(rentId);
+
+                ExtendRentForm frmExtendRent = new ExtendRentForm(rent);
+                if (frmExtendRent.ShowDialog() == DialogResult.OK)
+                {
+                    UpdateRentsDataGridView(_rentsRepository.GetRentsOnDate(DateTime.Now));
+                }
+            }
+            
         }
     }
 }
