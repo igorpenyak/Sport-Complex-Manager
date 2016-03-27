@@ -115,6 +115,7 @@
             this.rentersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.rentersToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.rentersToolStripMenuItem.Text = "Renters...";
+            this.rentersToolStripMenuItem.Click += new System.EventHandler(this.rentersToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -236,7 +237,7 @@
             this.btnCancelRent.Name = "btnCancelRent";
             this.btnCancelRent.Size = new System.Drawing.Size(119, 50);
             this.btnCancelRent.TabIndex = 6;
-            this.btnCancelRent.Text = "Cancel";
+            this.btnCancelRent.Text = "Complete rent";
             this.btnCancelRent.UseVisualStyleBackColor = true;
             this.btnCancelRent.Click += new System.EventHandler(this.btnCancelRent_Click);
             // 
@@ -247,7 +248,7 @@
             this.btnExtendRent.Name = "btnExtendRent";
             this.btnExtendRent.Size = new System.Drawing.Size(119, 50);
             this.btnExtendRent.TabIndex = 5;
-            this.btnExtendRent.Text = "Extend";
+            this.btnExtendRent.Text = "Extend rent";
             this.btnExtendRent.UseVisualStyleBackColor = true;
             this.btnExtendRent.Click += new System.EventHandler(this.btnExtendRent_Click);
             // 
@@ -258,7 +259,7 @@
             this.btnNewRent.Name = "btnNewRent";
             this.btnNewRent.Size = new System.Drawing.Size(119, 50);
             this.btnNewRent.TabIndex = 4;
-            this.btnNewRent.Text = "New";
+            this.btnNewRent.Text = "New rent";
             this.btnNewRent.UseVisualStyleBackColor = true;
             this.btnNewRent.Click += new System.EventHandler(this.btnNewRent_Click);
             // 

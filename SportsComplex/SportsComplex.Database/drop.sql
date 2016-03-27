@@ -4,8 +4,13 @@ DROP VIEW vPriceList;
 GO
 
 DROP PROC spCheckUser;
-DROP PROC spRemoveRent;
 DROP PROC spMakeRent;
+DROP PROC spRemoveRent;
+DROP PROC spGetRents;
+DROP PROC spAddRenter;
+DROP PROC spAddSportsHall;
+DROP PROC spExtendRent;
+
 GO
 
 DROP TABLE [tblRent];

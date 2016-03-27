@@ -146,6 +146,57 @@ namespace SportsComplex.Repositories
             return sportsHalls;
         }
 
+        public int Add(int hallTypeId, int area, decimal rate)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "spAddSportsHall";
+
+                    command.Parameters.AddWithValue("@hallTypeId", hallTypeId);
+                    command.Parameters.AddWithValue("@area", area);
+                    command.Parameters.AddWithValue("@rate", rate);
+                    command.Parameters.Add(new SqlParameter("@sportsHallId",
+                                                        SqlDbType.Int,
+                                                        0,
+                                                        ParameterDirection.Output,
+                                                        false,
+                                                        0,
+                                                        0,
+                                                        "tblClass",
+                                                        DataRowVersion.Default,
+                                                        null));
+                    command.ExecuteNonQuery();
+
+                    int hallId = (int)command.Parameters["@sportsHallId"].Value;
+
+                    return hallId;
+                }
+            }
+        }
+
+        public void Remove(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "DELETE FROM tblClass WHERE Id = @hallId";
+                    command.Parameters.AddWithValue("@hallId", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         private const string _getHallsByFilter = @"SELECT c.Id, c.ClassTypeId as [TypeId], ct.Name as [TypeName], c.Area,                                            c.Rate
 	                                                FROM [tblClass] c
 	                                                INNER JOIN [tblClassType] ct  ON c.ClassTypeId = ct.Id

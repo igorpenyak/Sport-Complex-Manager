@@ -206,7 +206,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @dateEnd DATETIME;
+	DECLARE @dateStart DATETIME;
 	DECLARE @sportsHallId INT;
 
 	-- Check
@@ -217,12 +217,12 @@ BEGIN
 	END
 
 	-- Get current DateEnd of rent by @rentId
-	SELECT @DateEnd = r.DateEnd, @sportsHallId = c.Id
+	SELECT @dateStart = DATEADD(MINUTE, 1, r.DateEnd), @sportsHallId = c.Id
 	FROM tblRent r
 	INNER JOIN tblClass c ON r.ClassId = c.Id
 	WHERE r.Id = @rentId;
 
-	IF (@newDateEnd <= @dateEnd)
+	IF (@newDateEnd <= @dateStart)
 	BEGIN
 		RAISERROR ('Extended date of rent cannot be less or equal than current end date.', -- Message text.
            16, -- Severity,
@@ -235,7 +235,7 @@ BEGIN
 				FROM [tblRent]
 				WHERE [ClassId] = @sportsHallId 
 				AND
-				(@dateEnd <= [DateEnd] and @newDateEnd >= [DateStart])
+				(@dateStart <= [DateEnd] and @newDateEnd >= [DateStart])
 				AND [Deleted] = 0)
 	BEGIN
 		;THROW 70004, N'Cannot extend rent. Time period is used by another rent item.', 1;
@@ -249,3 +249,65 @@ BEGIN
 	WHERE Id = @rentId
 END 
 GO
+
+CREATE PROC spAddRenter
+	@firstName NVARCHAR(50),
+	@lastName NVARCHAR(50),
+	@phone NVARCHAR(30),
+
+	@renterId INT OUT
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	IF EXISTS(SELECT 1 FROM tblRenter WHERE Phone = @phone)
+	BEGIN
+		THROW 90001, N'Renter phone is already used.', 1;
+	END
+	
+	INSERT INTO tblRenter (FirstName, LastName, Phone)
+	VALUES (@firstName, @lastName, @phone);
+
+	SET @renterId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROC spAddSportsHall
+	@hallTypeId INT,
+	@area INT,
+	@rate NUMERIC(18,2),
+
+	@sportsHallId INT OUT
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	INSERT INTO tblClass(ClassTypeId, Area, Rate) 
+	VALUES (@hallTypeId, @area, @rate);
+
+	SET @sportsHallId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE PROC spAddSportsHallType
+	@name NVARCHAR(50),
+
+	@hallTypeId INT OUT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	IF EXISTS(SELECT 1 FROM tblClassType WHERE Name = @name)
+	BEGIN
+		;THROW 90001, N'Sports hall type with this name is already exists.', 1;
+	END
+	
+	INSERT INTO tblClassType(Name) 
+	VALUES (@name);
+
+	SET @hallTypeId = SCOPE_IDENTITY();
+END
+
+

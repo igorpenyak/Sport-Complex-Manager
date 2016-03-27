@@ -104,7 +104,7 @@
             this.ClientSize = new System.Drawing.Size(333, 310);
             this.Controls.Add(this.dgvPriceList);
             this.Controls.Add(this.btnClosePriceListForm);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PriceListForm";

@@ -10,6 +10,13 @@ namespace SportsComplex.Repositories
     interface IRentersRepository
     {
         IEnumerable<Renter> SelectAll();
-        Renter GetRenterById(int renterId);
+
+        Renter GetById(int renterId);
+
+        int Add(string lastName, string firstName, string phone);
+
+        void Edit(int renterId, string lastName, string firstName, string phone);
+
+        void Remove(int renterId); 
     }
 }

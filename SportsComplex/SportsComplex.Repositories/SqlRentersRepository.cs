@@ -16,7 +16,64 @@ namespace SportsComplex.Repositories
             ConnectionString = connectionString;
         }
 
-        public Renter GetRenterById(int renterId)
+        public int Add(string lastName, string firstName, string phone)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "spAddRenter";
+
+                    command.Parameters.AddWithValue("@firstName", firstName);
+                    command.Parameters.AddWithValue("@lastName", lastName);
+                    command.Parameters.AddWithValue("@phone", phone);
+                    command.Parameters.Add(new SqlParameter("@renterId",
+                                                        SqlDbType.Int,
+                                                        0,
+                                                        ParameterDirection.Output,
+                                                        false,
+                                                        0,
+                                                        0,
+                                                        "tblRenter",
+                                                        DataRowVersion.Default,
+                                                        null));
+                    command.ExecuteNonQuery();
+
+                    int renterId = (int)command.Parameters["@renterId"].Value;
+
+                    return renterId;
+                }
+            }
+        }
+
+        public void Edit(int renterId, string lastName, string firstName, string phone)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = @"UPDATE tblRenter 
+                                            SET FirstName = @firstName, LastName = @lastName, Phone = @phone
+                                            WHERE Id = @renterId";
+
+                    command.Parameters.AddWithValue("@renterId", renterId);
+                    command.Parameters.AddWithValue("@firstName", firstName);
+                    command.Parameters.AddWithValue("@lastName", lastName);
+                    command.Parameters.AddWithValue("@phone", phone);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public Renter GetById(int renterId)
         {
             Renter renterRes = new Renter();
 
@@ -53,6 +110,24 @@ namespace SportsComplex.Repositories
             }
 
             return renterRes;
+        }
+
+        public void Remove(int renterId)
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "DELETE FROM tblRenter WHERE Id = @renterId";
+
+                    command.Parameters.AddWithValue("@renterId", renterId);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public IEnumerable<Renter> SelectAll()

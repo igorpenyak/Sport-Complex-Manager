@@ -163,5 +163,13 @@ namespace SportsComplex.DesktopUI
             }
             
         }
+
+        private void rentersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RentersForm frmRenters = new RentersForm();
+            frmRenters.ShowDialog();
+
+            UpdateRentsDataGridView(_rentsRepository.GetRentsOnDate(DateTime.Now));
+        }
     }
 }
