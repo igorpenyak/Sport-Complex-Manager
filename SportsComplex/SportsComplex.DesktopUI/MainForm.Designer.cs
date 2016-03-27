@@ -33,7 +33,7 @@
             this.miExit = new System.Windows.Forms.ToolStripMenuItem();
             this.manageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sportsHallsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rentersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.miShowPriceList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,14 +43,14 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.lblFilter = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
-            this.cbRenter = new System.Windows.Forms.ComboBox();
-            this.lblRenter = new System.Windows.Forms.Label();
+            this.cbCustomer = new System.Windows.Forms.ComboBox();
+            this.lblCustomer = new System.Windows.Forms.Label();
             this.btnCancelRent = new System.Windows.Forms.Button();
             this.btnExtendRent = new System.Windows.Forms.Button();
             this.btnNewRent = new System.Windows.Forms.Button();
             this.dgvRents = new System.Windows.Forms.DataGridView();
             this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnRenter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnArea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,7 +94,7 @@
             // 
             this.manageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sportsHallsToolStripMenuItem,
-            this.rentersToolStripMenuItem,
+            this.customersToolStripMenuItem,
             this.toolStripSeparator1,
             this.miShowPriceList});
             this.manageToolStripMenuItem.Name = "manageToolStripMenuItem";
@@ -104,18 +104,16 @@
             // sportsHallsToolStripMenuItem
             // 
             this.sportsHallsToolStripMenuItem.Name = "sportsHallsToolStripMenuItem";
-            this.sportsHallsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.sportsHallsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.sportsHallsToolStripMenuItem.Text = "Sports Halls...";
             this.sportsHallsToolStripMenuItem.Click += new System.EventHandler(this.sportsHallsToolStripMenuItem_Click);
             // 
-            // rentersToolStripMenuItem
+            // customersToolStripMenuItem
             // 
-            this.rentersToolStripMenuItem.Name = "rentersToolStripMenuItem";
-            this.rentersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.rentersToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.rentersToolStripMenuItem.Text = "Renters...";
-            this.rentersToolStripMenuItem.Click += new System.EventHandler(this.rentersToolStripMenuItem_Click);
+            this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.customersToolStripMenuItem.Text = "Customers...";
+            this.customersToolStripMenuItem.Click += new System.EventHandler(this.rentersToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -154,8 +152,8 @@
             this.grpRents.Controls.Add(this.lblDate);
             this.grpRents.Controls.Add(this.lblFilter);
             this.grpRents.Controls.Add(this.btnReset);
-            this.grpRents.Controls.Add(this.cbRenter);
-            this.grpRents.Controls.Add(this.lblRenter);
+            this.grpRents.Controls.Add(this.cbCustomer);
+            this.grpRents.Controls.Add(this.lblCustomer);
             this.grpRents.Controls.Add(this.btnCancelRent);
             this.grpRents.Controls.Add(this.btnExtendRent);
             this.grpRents.Controls.Add(this.btnNewRent);
@@ -208,27 +206,27 @@
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
-            // cbRenter
+            // cbCustomer
             // 
-            this.cbRenter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbRenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbRenter.FormattingEnabled = true;
-            this.cbRenter.Location = new System.Drawing.Point(564, 327);
-            this.cbRenter.Name = "cbRenter";
-            this.cbRenter.Size = new System.Drawing.Size(119, 21);
-            this.cbRenter.TabIndex = 9;
-            this.cbRenter.DropDown += new System.EventHandler(this.cbRenter_DropDown);
-            this.cbRenter.SelectedIndexChanged += new System.EventHandler(this.cbRenter_SelectedIndexChanged);
+            this.cbCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCustomer.FormattingEnabled = true;
+            this.cbCustomer.Location = new System.Drawing.Point(564, 327);
+            this.cbCustomer.Name = "cbCustomer";
+            this.cbCustomer.Size = new System.Drawing.Size(119, 21);
+            this.cbCustomer.TabIndex = 9;
+            this.cbCustomer.DropDown += new System.EventHandler(this.cbCustomer_DropDown);
+            this.cbCustomer.SelectedIndexChanged += new System.EventHandler(this.cbCustomer_SelectedIndexChanged);
             // 
-            // lblRenter
+            // lblCustomer
             // 
-            this.lblRenter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRenter.AutoSize = true;
-            this.lblRenter.Location = new System.Drawing.Point(564, 311);
-            this.lblRenter.Name = "lblRenter";
-            this.lblRenter.Size = new System.Drawing.Size(42, 13);
-            this.lblRenter.TabIndex = 8;
-            this.lblRenter.Text = "Renter:";
+            this.lblCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCustomer.AutoSize = true;
+            this.lblCustomer.Location = new System.Drawing.Point(564, 311);
+            this.lblCustomer.Name = "lblCustomer";
+            this.lblCustomer.Size = new System.Drawing.Size(54, 13);
+            this.lblCustomer.TabIndex = 8;
+            this.lblCustomer.Text = "Customer:";
             // 
             // btnCancelRent
             // 
@@ -275,7 +273,7 @@
             this.dgvRents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnId,
-            this.ColumnRenter,
+            this.ColumnCustomer,
             this.ColumnType,
             this.ColumnArea,
             this.ColumnRate,
@@ -299,12 +297,12 @@
             this.ColumnId.Name = "ColumnId";
             this.ColumnId.ReadOnly = true;
             // 
-            // ColumnRenter
+            // ColumnCustomer
             // 
-            this.ColumnRenter.FillWeight = 98.71521F;
-            this.ColumnRenter.HeaderText = "Renter";
-            this.ColumnRenter.Name = "ColumnRenter";
-            this.ColumnRenter.ReadOnly = true;
+            this.ColumnCustomer.FillWeight = 98.71521F;
+            this.ColumnCustomer.HeaderText = "Customer";
+            this.ColumnCustomer.Name = "ColumnCustomer";
+            this.ColumnCustomer.ReadOnly = true;
             // 
             // ColumnType
             // 
@@ -382,7 +380,7 @@
         private System.Windows.Forms.ToolStripMenuItem miFile;
         private System.Windows.Forms.ToolStripMenuItem miExit;
         private System.Windows.Forms.ToolStripMenuItem manageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rentersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem customersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sportsHallsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
@@ -393,8 +391,14 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem miShowPriceList;
         public System.Windows.Forms.DataGridView dgvRents;
+        private System.Windows.Forms.ComboBox cbCustomer;
+        private System.Windows.Forms.Label lblCustomer;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Label lblFilter;
+        private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnRenter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCustomer;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnType;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnArea;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnRate;
@@ -402,12 +406,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDateTo;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnContactPhone;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCost;
-        private System.Windows.Forms.ComboBox cbRenter;
-        private System.Windows.Forms.Label lblRenter;
-        private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Label lblDate;
-        private System.Windows.Forms.Label lblFilter;
-        private System.Windows.Forms.DateTimePicker dtpDate;
     }
 }
 

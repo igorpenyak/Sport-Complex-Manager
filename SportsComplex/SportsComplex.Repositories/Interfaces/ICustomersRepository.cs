@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SportsComplex.Repositories
 {
-    interface IRentersRepository
+    interface ICustomersRepository
     {
-        IEnumerable<Renter> SelectAll();
+        IEnumerable<Customer> SelectAll();
 
-        Renter GetById(int renterId);
+        Customer GetById(int renterId);
 
         int Add(string lastName, string firstName, string phone);
 

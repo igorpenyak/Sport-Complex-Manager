@@ -50,13 +50,13 @@ namespace SportsComplex.DesktopUI
             {
                 dgvRents.Rows.Add(
                     r.Id, 
-                    string.Format("{0} {1}.", r.Renter.LastName, r.Renter.FirstName[0]), 
+                    string.Format("{0} {1}.", r.Customer.LastName, r.Customer.FirstName[0]), 
                     r.SportsHall.Type.Name, 
                     r.SportsHall.Area,
                     r.SportsHall.Rate,
                     r.DateStart,
                     r.DateEnd,
-                    r.Renter.Phone,
+                    r.Customer.Phone,
                     r.Cost);
             }
         }
@@ -97,34 +97,34 @@ namespace SportsComplex.DesktopUI
             }
         }
 
-        private void cbRenter_DropDown(object sender, EventArgs e)
+        private void cbCustomer_DropDown(object sender, EventArgs e)
         {
-            cbRenter.Items.Clear();
+            cbCustomer.Items.Clear();
 
             var rents = _rentsRepository.GetRentsOnDate(DateTime.Now);
             var orderedRents = from r in rents
-                        orderby r.Renter.LastName, r.Renter.FirstName
+                        orderby r.Customer.LastName, r.Customer.FirstName
                         select r;
             var distincRents = orderedRents
-                                .GroupBy(a => a.Renter.Id)
+                                .GroupBy(a => a.Customer.Id)
                                 .Select(g => g.First());
 
             foreach (var renter in distincRents)
             {
-                cbRenter.Items.Add(renter.Renter);
+                cbCustomer.Items.Add(renter.Customer);
             }
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            cbRenter.Items.Clear();
+            cbCustomer.Items.Clear();
             dtpDate.Value = DateTime.Now;
             UpdateRentsDataGridView(_rentsRepository.GetRentsOnDate(DateTime.Now));
         }
 
-        private void cbRenter_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var rents = _rentsRepository.GetRentsByRenterId(((Renter)(cbRenter.SelectedItem)).Id);
+            var rents = _rentsRepository.GetRentsByCustomerId(((Customer)(cbCustomer.SelectedItem)).Id);
 
             UpdateRentsDataGridView(rents);
         }
@@ -139,7 +139,7 @@ namespace SportsComplex.DesktopUI
         
         // Repositories.
         private SqlRentsRepository _rentsRepository;
-        private SqlRentersRepository _rentersRepository;
+        private SqlCustomersRepository _customersRepository;
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)
         {

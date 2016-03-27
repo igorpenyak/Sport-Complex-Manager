@@ -30,7 +30,7 @@
         {
             this.btnClose = new System.Windows.Forms.Button();
             this.grbRenters = new System.Windows.Forms.GroupBox();
-            this.dgvRenters = new System.Windows.Forms.DataGridView();
+            this.dgvCustomers = new System.Windows.Forms.DataGridView();
             this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,7 +38,7 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.grbRenters.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRenters)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
@@ -57,7 +57,7 @@
             this.grbRenters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grbRenters.Controls.Add(this.dgvRenters);
+            this.grbRenters.Controls.Add(this.dgvCustomers);
             this.grbRenters.Controls.Add(this.btnRemove);
             this.grbRenters.Controls.Add(this.btnAdd);
             this.grbRenters.Location = new System.Drawing.Point(13, 13);
@@ -66,28 +66,28 @@
             this.grbRenters.TabIndex = 5;
             this.grbRenters.TabStop = false;
             // 
-            // dgvRenters
+            // dgvCustomers
             // 
-            this.dgvRenters.AllowUserToAddRows = false;
-            this.dgvRenters.AllowUserToDeleteRows = false;
-            this.dgvRenters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvCustomers.AllowUserToAddRows = false;
+            this.dgvCustomers.AllowUserToDeleteRows = false;
+            this.dgvCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvRenters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvRenters.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dgvRenters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRenters.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvCustomers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCustomers.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dgvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnId,
             this.ColumnFirstName,
             this.ColumnLastName,
             this.ColumnPhone});
-            this.dgvRenters.Location = new System.Drawing.Point(12, 19);
-            this.dgvRenters.MultiSelect = false;
-            this.dgvRenters.Name = "dgvRenters";
-            this.dgvRenters.RowHeadersVisible = false;
-            this.dgvRenters.Size = new System.Drawing.Size(330, 165);
-            this.dgvRenters.TabIndex = 2;
-            this.dgvRenters.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRenters_CellEndEdit);
+            this.dgvCustomers.Location = new System.Drawing.Point(12, 19);
+            this.dgvCustomers.MultiSelect = false;
+            this.dgvCustomers.Name = "dgvCustomers";
+            this.dgvCustomers.RowHeadersVisible = false;
+            this.dgvCustomers.Size = new System.Drawing.Size(330, 165);
+            this.dgvCustomers.TabIndex = 2;
+            this.dgvCustomers.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomers_CellEndEdit);
             // 
             // ColumnId
             // 
@@ -145,10 +145,10 @@
             this.MinimizeBox = false;
             this.Name = "RentersForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Renters";
+            this.Text = "Customers";
             this.Load += new System.EventHandler(this.RentersForm_Load);
             this.grbRenters.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRenters)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -157,7 +157,7 @@
 
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.GroupBox grbRenters;
-        private System.Windows.Forms.DataGridView dgvRenters;
+        private System.Windows.Forms.DataGridView dgvCustomers;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnId;

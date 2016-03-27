@@ -12,10 +12,10 @@ namespace SportsComplex.Repositories
     public class SqlRentsRepository : SqlBaseRepository, IRentsRepository
     {
         const string getRentsOnDateQuery = @"SELECT rent.[Id]
-                                          ,rent.[RenterId]
-	                                      ,renter.FirstName AS [RenterFirstName]
-	                                      ,renter.LastName AS [RenterLastName]
-	                                      ,renter.Phone AS [RenterPhone]
+                                          ,rent.[CustomerId]
+	                                      ,customer.FirstName AS [CustomerFirstName]
+	                                      ,customer.LastName AS [CustomerLastName]
+	                                      ,customer.Phone AS [CustomerPhone]
                                           ,rent.[ClassId]
 	                                      ,ct.Id AS [ClassTypeId]
 	                                      ,ct.Name AS [ClassName]
@@ -26,7 +26,7 @@ namespace SportsComplex.Repositories
                                           ,rent.[Cost]
                                           ,rent.[Deleted]
                                           FROM [tblRent] rent
-                                          INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
+                                          INNER JOIN [tblCustomer] customer ON rent.CustomerId = customer.Id
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
                                           INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
                                           WHERE (@Date <= rent.DateEnd 
@@ -34,10 +34,10 @@ namespace SportsComplex.Repositories
                                           AND rent.Deleted = 0";
 
         const string getAllRentsQuery = @"SELECT rent.[Id]
-                                          ,rent.[RenterId]
-	                                      ,renter.FirstName AS [RenterFirstName]
-	                                      ,renter.LastName AS [RenterLastName]
-	                                      ,renter.Phone AS [RenterPhone]
+                                          ,rent.[CustomerId]
+	                                      ,customer.FirstName AS [CustomerFirstName]
+	                                      ,customer.LastName AS [CustomerLastName]
+	                                      ,customer.Phone AS [CustomerPhone]
                                           ,rent.[ClassId]
 	                                      ,ct.Id AS [ClassTypeId]
 	                                      ,ct.Name AS [ClassName]
@@ -48,16 +48,16 @@ namespace SportsComplex.Repositories
                                           ,rent.[Cost]
                                           ,rent.[Deleted]
                                           FROM [tblRent] rent
-                                          INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
+                                          INNER JOIN [tblCustomer] customer ON rent.CustomerId = customer.Id
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
                                           INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
                                           WHERE rent.[Deleted] = 0";
 
-        const string getRentsByRenterIdQuery = @"SELECT rent.[Id]
-                                          ,rent.[RenterId]
-	                                      ,renter.FirstName AS [RenterFirstName]
-	                                      ,renter.LastName AS [RenterLastName]
-	                                      ,renter.Phone AS [RenterPhone]
+        const string getRentsByCustomerIdQuery = @"SELECT rent.[Id]
+                                          ,rent.[CustomerId]
+	                                      ,customer.FirstName AS [CustomerFirstName]
+	                                      ,customer.LastName AS [CustomerLastName]
+	                                      ,customer.Phone AS [CustomerPhone]
                                           ,rent.[ClassId]
 	                                      ,ct.Id AS [ClassTypeId]
 	                                      ,ct.Name AS [ClassName]
@@ -68,16 +68,16 @@ namespace SportsComplex.Repositories
                                           ,rent.[Cost]
                                           ,rent.[Deleted]
                                           FROM [tblRent] rent
-                                          INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
+                                          INNER JOIN [tblCustomer] customer ON rent.CustomerId = customer.Id
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
                                           INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
-                                          WHERE renter.Id = @renterId AND rent.[Deleted] = 0";
+                                          WHERE customer.Id = @customerId AND rent.[Deleted] = 0";
 
         const string getRentByIdQuery = @"SELECT rent.[Id]
-                                          ,rent.[RenterId]
-	                                      ,renter.FirstName AS [RenterFirstName]
-	                                      ,renter.LastName AS [RenterLastName]
-	                                      ,renter.Phone AS [RenterPhone]
+                                          ,rent.[CustomerId]
+	                                      ,customer.FirstName AS [CustomerFirstName]
+	                                      ,customer.LastName AS [CustomerLastName]
+	                                      ,customer.Phone AS [CustomerPhone]
                                           ,rent.[ClassId]
 	                                      ,ct.Id AS [ClassTypeId]
 	                                      ,ct.Name AS [ClassName]
@@ -88,7 +88,7 @@ namespace SportsComplex.Repositories
                                           ,rent.[Cost]
                                           ,rent.[Deleted]
                                           FROM [tblRent] rent
-                                          INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
+                                          INNER JOIN [tblCustomer] customer ON rent.CustomerId = Customer.Id
                                           INNER JOIN [tblClass] c ON rent.ClassId = c.Id
                                           INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
                                           WHERE rent.Id = @rentId AND rent.[Deleted] = 0";
@@ -119,12 +119,12 @@ namespace SportsComplex.Repositories
                             var rentItem = new RentItem()
                             {
                                 Id = (int)reader["Id"],
-                                Renter = new Renter()
+                                Customer = new Customer()
                                 {
-                                    Id = (int)reader["RenterId"],
-                                    FirstName = (string)reader["RenterFirstName"],
-                                    LastName = (string)reader["RenterLastName"],
-                                    Phone = (string)reader["RenterPhone"]
+                                    Id = (int)reader["CustomerId"],
+                                    FirstName = (string)reader["CustomerFirstName"],
+                                    LastName = (string)reader["CustomerLastName"],
+                                    Phone = (string)reader["CustomerPhone"]
                                 },
                                 SportsHall = new SportsHall()
                                 {
@@ -206,12 +206,12 @@ namespace SportsComplex.Repositories
                             var rentItem = new RentItem()
                             {
                                 Id = (int)reader["Id"],
-                                Renter = new Renter()
+                                Customer = new Customer()
                                 {
-                                    Id = (int)reader["RenterId"],
-                                    FirstName = (string)reader["RenterFirstName"],
-                                    LastName = (string)reader["RenterLastName"],
-                                    Phone = (string)reader["RenterPhone"]
+                                    Id = (int)reader["CustomerId"],
+                                    FirstName = (string)reader["CustomerFirstName"],
+                                    LastName = (string)reader["CustomerLastName"],
+                                    Phone = (string)reader["CustomerPhone"]
                                 },
                                 SportsHall = new SportsHall()
                                 {
@@ -239,7 +239,7 @@ namespace SportsComplex.Repositories
             return rents;
         }
 
-        public IEnumerable<RentItem> GetRentsByRenterId(int renterId)
+        public IEnumerable<RentItem> GetRentsByCustomerId(int customerId)
         {
             var rents = new List<RentItem>();
 
@@ -250,8 +250,8 @@ namespace SportsComplex.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = getRentsByRenterIdQuery;
-                    command.Parameters.AddWithValue("@renterId", renterId);
+                    command.CommandText = getRentsByCustomerIdQuery;
+                    command.Parameters.AddWithValue("@customerId", customerId);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -260,12 +260,12 @@ namespace SportsComplex.Repositories
                             var rentItem = new RentItem()
                             {
                                 Id = (int)reader["Id"],
-                                Renter = new Renter()
+                                Customer = new Customer()
                                 {
-                                    Id = (int)reader["RenterId"],
-                                    FirstName = (string)reader["RenterFirstName"],
-                                    LastName = (string)reader["RenterLastName"],
-                                    Phone = (string)reader["RenterPhone"]
+                                    Id = (int)reader["CustomerId"],
+                                    FirstName = (string)reader["CustomerFirstName"],
+                                    LastName = (string)reader["CustomerLastName"],
+                                    Phone = (string)reader["CustomerPhone"]
                                 },
                                 SportsHall = new SportsHall()
                                 {
@@ -296,13 +296,13 @@ namespace SportsComplex.Repositories
         /// <summary>
         /// Make rent of sports hall.
         /// </summary>
-        /// <param name="renterId">Id of renter.</param>
+        /// <param name="customerId">Id of customer.</param>
         /// <param name="sportsHallId">Id of sports hall</param>
         /// <param name="dateStart">Rent start date</param>
         /// <param name="dateEnd">Rent finish date</param>
         /// <param name="Cost">Rent summary cost. Depends of rent time period</param>
         /// <returns>Id of new rent</returns>
-        public int MakeRent(int renterId, int sportsHallId, DateTime dateStart, DateTime dateEnd, decimal Cost)
+        public int MakeRent(int customerId, int sportsHallId, DateTime dateStart, DateTime dateEnd, decimal Cost)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -325,7 +325,7 @@ namespace SportsComplex.Repositories
                                                         DataRowVersion.Default,
                                                         null));
 
-                    command.Parameters.AddWithValue("@renterId", renterId);
+                    command.Parameters.AddWithValue("@customerId", customerId);
                     command.Parameters.AddWithValue("@sportsHallId", sportsHallId);
                     command.Parameters.AddWithValue("@dateStart", dateStart);
                     command.Parameters.AddWithValue("@dateEnd", dateEnd);
@@ -382,12 +382,12 @@ namespace SportsComplex.Repositories
                             var rentItem = new RentItem()
                             {
                                 Id = (int)reader["Id"],
-                                Renter = new Renter()
+                                Customer = new Customer()
                                 {
-                                    Id = (int)reader["RenterId"],
-                                    FirstName = (string)reader["RenterFirstName"],
-                                    LastName = (string)reader["RenterLastName"],
-                                    Phone = (string)reader["RenterPhone"]
+                                    Id = (int)reader["CustomerId"],
+                                    FirstName = (string)reader["CustomerFirstName"],
+                                    LastName = (string)reader["CustomerLastName"],
+                                    Phone = (string)reader["CustomerPhone"]
                                 },
                                 SportsHall = new SportsHall()
                                 {

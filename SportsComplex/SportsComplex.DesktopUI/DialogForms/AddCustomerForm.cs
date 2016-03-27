@@ -12,14 +12,14 @@ using System.Windows.Forms;
 
 namespace SportsComplex.DesktopUI
 {
-    public partial class AddRenterForm : Form
+    public partial class AddCustomerForm : Form
     {
-        public AddRenterForm()
+        public AddCustomerForm()
         {
             InitializeComponent();
         }
 
-        private void btnAddRenter_Click(object sender, EventArgs e)
+        private void btnAddCustomer_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbLastName.Text) || string.IsNullOrWhiteSpace(tbFirstName.Text) 
                 || !mtbPhone.MaskFull)
@@ -28,9 +28,9 @@ namespace SportsComplex.DesktopUI
             }
             else
             {
-                var rentersRepository = new SqlRentersRepository(ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString);
+                var customersRepository = new SqlCustomersRepository(ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString);
 
-                rentersRepository.Add(tbLastName.Text, tbFirstName.Text, mtbPhone.Text);
+                customersRepository.Add(tbLastName.Text, tbFirstName.Text, mtbPhone.Text);
                 this.DialogResult = DialogResult.OK;
             }
         }

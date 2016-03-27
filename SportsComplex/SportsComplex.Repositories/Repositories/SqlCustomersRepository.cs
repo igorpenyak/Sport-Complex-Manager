@@ -9,9 +9,9 @@ using System.Data;
 
 namespace SportsComplex.Repositories
 {
-    public class SqlRentersRepository : SqlBaseRepository, IRentersRepository
+    public class SqlCustomersRepository : SqlBaseRepository, ICustomersRepository
     {
-        public SqlRentersRepository(string connectionString)
+        public SqlCustomersRepository(string connectionString)
         {
             ConnectionString = connectionString;
         }
@@ -26,31 +26,31 @@ namespace SportsComplex.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "spAddRenter";
+                    command.CommandText = "spAddCustomer";
 
                     command.Parameters.AddWithValue("@firstName", firstName);
                     command.Parameters.AddWithValue("@lastName", lastName);
                     command.Parameters.AddWithValue("@phone", phone);
-                    command.Parameters.Add(new SqlParameter("@renterId",
+                    command.Parameters.Add(new SqlParameter("@customerId",
                                                         SqlDbType.Int,
                                                         0,
                                                         ParameterDirection.Output,
                                                         false,
                                                         0,
                                                         0,
-                                                        "tblRenter",
+                                                        "tblCustomer",
                                                         DataRowVersion.Default,
                                                         null));
                     command.ExecuteNonQuery();
 
-                    int renterId = (int)command.Parameters["@renterId"].Value;
+                    int customerId = (int)command.Parameters["@customerId"].Value;
 
-                    return renterId;
+                    return customerId;
                 }
             }
         }
 
-        public void Edit(int renterId, string lastName, string firstName, string phone)
+        public void Edit(int customerId, string lastName, string firstName, string phone)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -60,11 +60,11 @@ namespace SportsComplex.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = @"UPDATE tblRenter 
+                    command.CommandText = @"UPDATE tblCustomer 
                                             SET FirstName = @firstName, LastName = @lastName, Phone = @phone
-                                            WHERE Id = @renterId";
+                                            WHERE Id = @customerId";
 
-                    command.Parameters.AddWithValue("@renterId", renterId);
+                    command.Parameters.AddWithValue("@customerId", customerId);
                     command.Parameters.AddWithValue("@firstName", firstName);
                     command.Parameters.AddWithValue("@lastName", lastName);
                     command.Parameters.AddWithValue("@phone", phone);
@@ -73,9 +73,9 @@ namespace SportsComplex.Repositories
             }
         }
 
-        public Renter GetById(int renterId)
+        public Customer GetById(int customerId)
         {
-            Renter renterRes = new Renter();
+            Customer renterRes = new Customer();
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -86,15 +86,15 @@ namespace SportsComplex.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
                     command.CommandText = @"SELECT Id, LastName, FirstName, Phone
-                                            FROM tblRenter
+                                            FROM tblCustomer
                                             WHERE Id = @rentId";
-                    command.Parameters.AddWithValue("@rentId", renterId);
+                    command.Parameters.AddWithValue("@rentId", customerId);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var renter = new Renter()
+                            var renter = new Customer()
                             {
                                 Id = (int)reader["Id"],
                                 FirstName = (string)reader["FirstName"],
@@ -122,17 +122,17 @@ namespace SportsComplex.Repositories
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "DELETE FROM tblRenter WHERE Id = @renterId";
+                    command.CommandText = "DELETE FROM tblCustomer WHERE Id = @customerId";
 
-                    command.Parameters.AddWithValue("@renterId", renterId);
+                    command.Parameters.AddWithValue("@customerId", renterId);
                     command.ExecuteNonQuery();
                 }
             }
         }
 
-        public IEnumerable<Renter> SelectAll()
+        public IEnumerable<Customer> SelectAll()
         {
-            var renters = new List<Renter>();
+            var customers = new List<Customer>();
 
             // Get data from database.
             using (SqlConnection connection = new SqlConnection(ConnectionString))
@@ -144,13 +144,13 @@ namespace SportsComplex.Repositories
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
                     command.CommandText = @"SELECT Id, LastName, FirstName, Phone
-                                            FROM tblRenter";
+                                            FROM tblCustomer";
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            var renter = new Renter()
+                            var customer = new Customer()
                             {
                                 Id = (int)reader["Id"],
                                 FirstName = (string)reader["FirstName"],
@@ -158,13 +158,13 @@ namespace SportsComplex.Repositories
                                 Phone = (string)reader["Phone"]
                             };
 
-                            renters.Add(renter);
+                            customers.Add(customer);
                         }
                     }
                 }
             }
 
-            return renters;
+            return customers;
         }
     }
 }

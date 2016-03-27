@@ -50,8 +50,8 @@
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblCash = new System.Windows.Forms.Label();
-            this.cbRenter = new System.Windows.Forms.ComboBox();
-            this.lblRenter = new System.Windows.Forms.Label();
+            this.cbCustomer = new System.Windows.Forms.ComboBox();
+            this.lblCustomer = new System.Windows.Forms.Label();
             this.dgvSportsHalls = new System.Windows.Forms.DataGridView();
             this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnType = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,8 +82,8 @@
             this.grbNewRent.Controls.Add(this.dtpDate);
             this.grbNewRent.Controls.Add(this.lblDate);
             this.grbNewRent.Controls.Add(this.lblCash);
-            this.grbNewRent.Controls.Add(this.cbRenter);
-            this.grbNewRent.Controls.Add(this.lblRenter);
+            this.grbNewRent.Controls.Add(this.cbCustomer);
+            this.grbNewRent.Controls.Add(this.lblCustomer);
             this.grbNewRent.Controls.Add(this.dgvSportsHalls);
             this.grbNewRent.Location = new System.Drawing.Point(13, 13);
             this.grbNewRent.Name = "grbNewRent";
@@ -318,25 +318,25 @@
             this.lblCash.TabIndex = 26;
             this.lblCash.Text = "Rent total sum:";
             // 
-            // cbRenter
+            // cbCustomer
             // 
-            this.cbRenter.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.cbRenter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbRenter.FormattingEnabled = true;
-            this.cbRenter.Location = new System.Drawing.Point(12, 294);
-            this.cbRenter.Name = "cbRenter";
-            this.cbRenter.Size = new System.Drawing.Size(144, 21);
-            this.cbRenter.TabIndex = 25;
+            this.cbCustomer.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.cbCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCustomer.FormattingEnabled = true;
+            this.cbCustomer.Location = new System.Drawing.Point(12, 294);
+            this.cbCustomer.Name = "cbCustomer";
+            this.cbCustomer.Size = new System.Drawing.Size(144, 21);
+            this.cbCustomer.TabIndex = 25;
             // 
-            // lblRenter
+            // lblCustomer
             // 
-            this.lblRenter.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.lblRenter.AutoSize = true;
-            this.lblRenter.Location = new System.Drawing.Point(9, 277);
-            this.lblRenter.Name = "lblRenter";
-            this.lblRenter.Size = new System.Drawing.Size(42, 13);
-            this.lblRenter.TabIndex = 24;
-            this.lblRenter.Text = "Renter:";
+            this.lblCustomer.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblCustomer.AutoSize = true;
+            this.lblCustomer.Location = new System.Drawing.Point(9, 277);
+            this.lblCustomer.Name = "lblCustomer";
+            this.lblCustomer.Size = new System.Drawing.Size(54, 13);
+            this.lblCustomer.TabIndex = 24;
+            this.lblCustomer.Text = "Customer:";
             // 
             // dgvSportsHalls
             // 
@@ -448,8 +448,8 @@
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblCash;
-        private System.Windows.Forms.ComboBox cbRenter;
-        private System.Windows.Forms.Label lblRenter;
+        private System.Windows.Forms.ComboBox cbCustomer;
+        private System.Windows.Forms.Label lblCustomer;
         private System.Windows.Forms.DataGridView dgvSportsHalls;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnType;

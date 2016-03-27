@@ -13,7 +13,7 @@ namespace SportsComplex.Repositories
 
         IEnumerable<RentItem> GetRentsOnDate(DateTime inputDate);
 
-        IEnumerable<RentItem> GetRentsByRenterId(int renterId);
+        IEnumerable<RentItem> GetRentsByCustomerId(int renterId);
 
         RentItem GetRentById(int rentId);
 

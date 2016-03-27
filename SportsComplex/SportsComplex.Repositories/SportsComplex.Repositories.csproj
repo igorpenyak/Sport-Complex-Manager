@@ -41,14 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encryptor.cs" />
-    <Compile Include="Interfaces\IRentersRepository.cs" />
+    <Compile Include="Interfaces\ICustomersRepository.cs" />
     <Compile Include="Interfaces\IRentsRepository.cs" />
     <Compile Include="Interfaces\ISportsHallsRepository.cs" />
     <Compile Include="Interfaces\ISportsHallTypes.cs" />
     <Compile Include="Interfaces\IUsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SqlBaseRepository.cs" />
-    <Compile Include="Repositories\SqlRentersRepository.cs" />
+    <Compile Include="Repositories\SqlCustomersRepository.cs" />
     <Compile Include="Repositories\SqlRentsRepository.cs" />
     <Compile Include="Repositories\SqlSportsHallsRepository.cs" />
     <Compile Include="Repositories\SqlSportsHallTypesRepository.cs" />

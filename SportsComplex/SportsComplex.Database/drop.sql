@@ -16,7 +16,7 @@ GO
 DROP TABLE [tblRent];
 DROP TABLE [tblClass];
 DROP TABLE [tblClassType];
-DROP TABLE [tblRenter];
+DROP TABLE [tblCustomer];
 DROP TABLE [tblUser];
 GO
 --DROP DATABASE SportsComplex;

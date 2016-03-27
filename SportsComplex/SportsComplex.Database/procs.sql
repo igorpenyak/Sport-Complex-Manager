@@ -106,10 +106,10 @@ BEGIN
 
 	SELECT 
 	     rent.[Id]
-        ,rent.[RenterId]
-	    ,renter.FirstName AS [RenterFirstName]
-	    ,renter.LastName AS [RenterLastName]
-	    ,renter.Phone AS [RenterPhone]
+        ,rent.[CustomerId]
+	    ,renter.FirstName AS [CustomerFirstName]
+	    ,renter.LastName AS [CustomerLastName]
+	    ,renter.Phone AS [CustomerPhone]
         ,rent.[ClassId]
 	    ,ct.Id AS [ClassTypeId]
 	    ,ct.Name AS [ClassName]
@@ -120,7 +120,7 @@ BEGIN
         ,rent.[Cost]
         ,rent.[Deleted]
     FROM [tblRent] rent
-        INNER JOIN [tblRenter] renter ON rent.RenterId = renter.Id
+        INNER JOIN [tblCustomer] renter ON rent.CustomerId = renter.Id
         INNER JOIN [tblClass] c ON rent.ClassId = c.Id
         INNER JOIN [tblClassType] ct ON c.ClassTypeId = ct.Id
     WHERE (@Date <= rent.DateEnd 
@@ -132,7 +132,7 @@ END
 GO
 
 CREATE PROC [dbo].[spMakeRent]
-	@renterId INT,
+	@customerId INT,
 	@sportsHallId INT,
 	@dateStart DATETIME,
 	@dateEnd DATETIME,
@@ -177,14 +177,14 @@ BEGIN
 	END
 
 	INSERT INTO tblRent
-				(RenterId,
+				(CustomerId,
 				ClassId,
 				DateStart,
 				DateEnd,
 				Cost,
 				Deleted)
 			VALUES 
-				(@renterId, 
+				(@customerId, 
 				@sportsHallId,
 				@dateStart,
 				@dateEnd,
@@ -250,26 +250,26 @@ BEGIN
 END 
 GO
 
-CREATE PROC spAddRenter
+CREATE PROC spAddCustomer
 	@firstName NVARCHAR(50),
 	@lastName NVARCHAR(50),
 	@phone NVARCHAR(30),
 
-	@renterId INT OUT
+	@customerId INT OUT
 
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	IF EXISTS(SELECT 1 FROM tblRenter WHERE Phone = @phone)
+	IF EXISTS(SELECT 1 FROM tblCustomer WHERE Phone = @phone)
 	BEGIN
-		THROW 90001, N'Renter phone is already used.', 1;
+		;THROW 90001, N'Customer''s phone is already used.', 1;
 	END
 	
-	INSERT INTO tblRenter (FirstName, LastName, Phone)
+	INSERT INTO tblCustomer (FirstName, LastName, Phone)
 	VALUES (@firstName, @lastName, @phone);
 
-	SET @renterId = SCOPE_IDENTITY();
+	SET @customerId = SCOPE_IDENTITY();
 END
 GO
 

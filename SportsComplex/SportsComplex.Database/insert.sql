@@ -30,18 +30,18 @@ INSERT INTO tblClass(Id, ClassTypeId, Area, Rate) VALUES
 		(12, 7, 115, 35)
 SET IDENTITY_INSERT tblClass OFF
 
-SET IDENTITY_INSERT tblRenter ON
-INSERT INTO tblRenter (Id, LastName, FirstName, Phone) VALUES
+SET IDENTITY_INSERT tblCustomer ON
+INSERT INTO tblCustomer (Id, LastName, FirstName, Phone) VALUES
 		(1, 'Smith', 'Jonh', '754-3010'),
 		(2, 'Depp', 'Johnny', '854-1234'),
 		(3, 'Crowe', 'Russel', '123-567'),
 		(4, 'Pitt', 'Brad', '798-790'),
 		(5, 'DiCaprio', 'Leonardo', '777-111'),
 		(6, 'Cruise', 'Tom', '911-119')
-SET IDENTITY_INSERT tblRenter OFF
+SET IDENTITY_INSERT tblCustomer OFF
 
 SET IDENTITY_INSERT tblRent ON
-INSERT INTO tblRent (Id, RenterId, ClassId, DateStart, DateEnd, Cost) VALUES
+INSERT INTO tblRent (Id, CustomerId, ClassId, DateStart, DateEnd, Cost) VALUES
 		(1, 4, 3, GetDate(), DateAdd(hour, 3, GetDate()), 1000),
 		(2, 1, 5, GetDate(), DateAdd(hour, 2, GetDate()), 300),
 		(3, 2, 8, GetDate(), DateAdd(hour, 8, GetDate()), 800),

@@ -15,7 +15,7 @@ namespace SportsComplex.DesktopUI
             InitializeComponent();
             _sportsHallTypesRepository = new SqlSportsHallTypesRepository(_connString);
             _sportsHallsRepository = new SqlSportsHallsRepository(_connString);
-            _rentersRepository = new SqlRentersRepository(_connString);
+            _customersRepository = new SqlCustomersRepository(_connString);
             _rentsRepository = new SqlRentsRepository(_connString);
         }
 
@@ -24,14 +24,14 @@ namespace SportsComplex.DesktopUI
         private void NewRentForm_Load(object sender, EventArgs e)
         {
             var halls = _sportsHallsRepository.SelectAll();
-            var renters = _rentersRepository.SelectAll();
+            var customers = _customersRepository.SelectAll();
 
             // Fill renters combobox.
-            cbRenter.Items.Clear();
+            cbCustomer.Items.Clear();
 
-            foreach (var r in renters)
+            foreach (var r in customers)
             {
-                cbRenter.Items.Add(r);
+                cbCustomer.Items.Add(r);
             }
 
             // Update UI.
@@ -94,13 +94,13 @@ namespace SportsComplex.DesktopUI
             if (dgvSportsHalls.SelectedRows.Count > 0)
             {
                 int index = dgvSportsHalls.SelectedRows[0].Index;
-                if (cbRenter.SelectedIndex > -1)
+                if (cbCustomer.SelectedIndex > -1)
                 {
                     DateTime dtFrom = dtpDate.Value.Date + dtpTimeFrom.Value.TimeOfDay;
                     DateTime dtTo = dtpDate.Value.Date + dtpTimeTo.Value.TimeOfDay;
 
                     RentId = _rentsRepository.MakeRent(
-                        ((Renter)(cbRenter.SelectedItem)).Id,
+                        ((Customer)(cbCustomer.SelectedItem)).Id,
                         (int)dgvSportsHalls[0, index].Value,
                         dtFrom,
                         dtTo,
@@ -130,13 +130,11 @@ namespace SportsComplex.DesktopUI
                 int index = dgvSportsHalls.SelectedRows[0].Index;
                 decimal rate = (decimal)dgvSportsHalls["ColumnRate", index].Value;
                 TimeSpan ts = dtpTimeFrom.Value - dtpTimeTo.Value;
-                _costTotal =  rate * (decimal)(ts.TotalMinutes / 60);
+                decimal _costTotal =  rate * (decimal)(ts.TotalMinutes / 60);
 
                 lblSumCash.Text = Math.Abs(Math.Round(_costTotal, 2, MidpointRounding.AwayFromZero)).ToString();
             }
         }
-
-        private decimal _costTotal = 0.0m;
 
         private void btnSearchSportsHalls_Click(object sender, EventArgs e)
         {
@@ -154,7 +152,7 @@ namespace SportsComplex.DesktopUI
 
         private SqlSportsHallsRepository _sportsHallsRepository;
         private SqlSportsHallTypesRepository _sportsHallTypesRepository;
-        private SqlRentersRepository _rentersRepository;
+        private SqlCustomersRepository _customersRepository;
         private SqlRentsRepository _rentsRepository;
 
         private string _connString = ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString;

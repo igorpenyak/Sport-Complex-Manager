@@ -1,5 +1,6 @@
 CREATE DATABASE SportsComplex;
 GO
+
 USE [SportsComplex];
 
 CREATE TABLE tblClassType (
@@ -20,26 +21,26 @@ CREATE TABLE tblClass (
 );
 GO
 
-CREATE TABLE tblRenter (
+CREATE TABLE tblCustomer (
 	Id INT NOT NULL IDENTITY(1, 1),
 	FirstName NVARCHAR(50) NOT NULL,
 	LastName NVARCHAR(50) NOT NULL,
 	Phone NVARCHAR(30) NOT NULL,
-	CONSTRAINT PK_tblRenter_Id PRIMARY KEY (Id),
-	CONSTRAINT UQ_tblRenter_Phone UNIQUE (Phone)
+	CONSTRAINT PK_tblCustomer_Id PRIMARY KEY (Id),
+	CONSTRAINT UQ_tblCustomer_Phone UNIQUE (Phone)
 );
 GO
 
 CREATE TABLE tblRent (
 	Id INT NOT NULL IDENTITY(1, 1),
-	RenterId INT NOT NULL,
+	CustomerId INT NOT NULL,
 	ClassId INT NOT NULL,
 	DateStart DATETIME NOT NULL,
 	DateEnd DATETIME NOT NULL,
 	Cost NUMERIC(18, 2) NOT NULL,
 	Deleted BIT NOT NULL CONSTRAINT [DF_tblRent_Deleted] DEFAULT 0,
 	CONSTRAINT PK_tblRent_Id PRIMARY KEY (Id),
-	CONSTRAINT FK_tblRent_RenterId_tblRenter_Id FOREIGN KEY (RenterId) REFERENCES tblRenter (Id),
+	CONSTRAINT FK_tblRent_CustomerId_tblCustomer_Id FOREIGN KEY (CustomerId) REFERENCES tblCustomer (Id),
 	CONSTRAINT FK_tblRent_ClassId_tblClass_Id FOREIGN KEY (ClassId) REFERENCES tblClass (Id)
 );
 

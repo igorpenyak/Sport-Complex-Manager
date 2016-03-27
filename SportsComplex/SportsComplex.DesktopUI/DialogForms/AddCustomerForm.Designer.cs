@@ -1,6 +1,6 @@
 ﻿namespace SportsComplex.DesktopUI
 {
-    partial class AddRenterForm
+    partial class AddCustomerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnAddRenter = new System.Windows.Forms.Button();
-            this.grbRenter = new System.Windows.Forms.GroupBox();
+            this.btnAddCustomer = new System.Windows.Forms.Button();
+            this.grbCustomer = new System.Windows.Forms.GroupBox();
             this.mtbPhone = new System.Windows.Forms.MaskedTextBox();
             this.tbFirstName = new System.Windows.Forms.TextBox();
             this.tbLastName = new System.Windows.Forms.TextBox();
             this.lblPhone = new System.Windows.Forms.Label();
             this.lblLastName = new System.Windows.Forms.Label();
             this.lblFirstName = new System.Windows.Forms.Label();
-            this.grbRenter.SuspendLayout();
+            this.grbCustomer.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -51,34 +51,34 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // btnAddRenter
+            // btnAddCustomer
             // 
-            this.btnAddRenter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddRenter.Location = new System.Drawing.Point(36, 176);
-            this.btnAddRenter.Name = "btnAddRenter";
-            this.btnAddRenter.Size = new System.Drawing.Size(77, 23);
-            this.btnAddRenter.TabIndex = 1;
-            this.btnAddRenter.Text = "Add";
-            this.btnAddRenter.UseVisualStyleBackColor = true;
-            this.btnAddRenter.Click += new System.EventHandler(this.btnAddRenter_Click);
+            this.btnAddCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddCustomer.Location = new System.Drawing.Point(36, 176);
+            this.btnAddCustomer.Name = "btnAddCustomer";
+            this.btnAddCustomer.Size = new System.Drawing.Size(77, 23);
+            this.btnAddCustomer.TabIndex = 1;
+            this.btnAddCustomer.Text = "Add";
+            this.btnAddCustomer.UseVisualStyleBackColor = true;
+            this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
             // 
-            // grbRenter
+            // grbCustomer
             // 
-            this.grbRenter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grbCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grbRenter.Controls.Add(this.mtbPhone);
-            this.grbRenter.Controls.Add(this.tbFirstName);
-            this.grbRenter.Controls.Add(this.tbLastName);
-            this.grbRenter.Controls.Add(this.lblPhone);
-            this.grbRenter.Controls.Add(this.lblLastName);
-            this.grbRenter.Controls.Add(this.lblFirstName);
-            this.grbRenter.Location = new System.Drawing.Point(13, 13);
-            this.grbRenter.Name = "grbRenter";
-            this.grbRenter.Size = new System.Drawing.Size(184, 157);
-            this.grbRenter.TabIndex = 0;
-            this.grbRenter.TabStop = false;
-            this.grbRenter.Text = "Renter";
+            this.grbCustomer.Controls.Add(this.mtbPhone);
+            this.grbCustomer.Controls.Add(this.tbFirstName);
+            this.grbCustomer.Controls.Add(this.tbLastName);
+            this.grbCustomer.Controls.Add(this.lblPhone);
+            this.grbCustomer.Controls.Add(this.lblLastName);
+            this.grbCustomer.Controls.Add(this.lblFirstName);
+            this.grbCustomer.Location = new System.Drawing.Point(13, 13);
+            this.grbCustomer.Name = "grbCustomer";
+            this.grbCustomer.Size = new System.Drawing.Size(184, 157);
+            this.grbCustomer.TabIndex = 0;
+            this.grbCustomer.TabStop = false;
+            this.grbCustomer.Text = "Customer";
             // 
             // mtbPhone
             // 
@@ -129,24 +129,24 @@
             this.lblFirstName.TabIndex = 1;
             this.lblFirstName.Text = "First name:";
             // 
-            // AddRenterForm
+            // AddCustomerForm
             // 
-            this.AcceptButton = this.btnAddRenter;
+            this.AcceptButton = this.btnAddCustomer;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(209, 211);
-            this.Controls.Add(this.grbRenter);
+            this.Controls.Add(this.grbCustomer);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnAddRenter);
+            this.Controls.Add(this.btnAddCustomer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AddRenterForm";
+            this.Name = "AddCustomerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Add Renter";
-            this.grbRenter.ResumeLayout(false);
-            this.grbRenter.PerformLayout();
+            this.Text = "Add Customer";
+            this.grbCustomer.ResumeLayout(false);
+            this.grbCustomer.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -154,8 +154,8 @@
         #endregion
 
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnAddRenter;
-        private System.Windows.Forms.GroupBox grbRenter;
+        private System.Windows.Forms.Button btnAddCustomer;
+        private System.Windows.Forms.GroupBox grbCustomer;
         private System.Windows.Forms.MaskedTextBox mtbPhone;
         private System.Windows.Forms.TextBox tbFirstName;
         private System.Windows.Forms.TextBox tbLastName;
