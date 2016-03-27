@@ -98,7 +98,7 @@
             this.lblSumCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblSumCash.Location = new System.Drawing.Point(270, 377);
             this.lblSumCash.Name = "lblSumCash";
-            this.lblSumCash.Size = new System.Drawing.Size(48, 16);
+            this.lblSumCash.Size = new System.Drawing.Size(43, 16);
             this.lblSumCash.TabIndex = 38;
             this.lblSumCash.Text = "0";
             this.lblSumCash.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

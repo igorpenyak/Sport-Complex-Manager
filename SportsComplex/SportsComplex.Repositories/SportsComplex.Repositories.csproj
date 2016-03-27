@@ -41,18 +41,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encryptor.cs" />
-    <Compile Include="IRentersRepository.cs" />
-    <Compile Include="IRentsRepository.cs" />
-    <Compile Include="ISportsHallsRepository.cs" />
-    <Compile Include="ISportsHallTypes.cs" />
-    <Compile Include="IUsersRepository.cs" />
+    <Compile Include="Interfaces\IRentersRepository.cs" />
+    <Compile Include="Interfaces\IRentsRepository.cs" />
+    <Compile Include="Interfaces\ISportsHallsRepository.cs" />
+    <Compile Include="Interfaces\ISportsHallTypes.cs" />
+    <Compile Include="Interfaces\IUsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlBaseRepository.cs" />
-    <Compile Include="SqlRentersRepository.cs" />
-    <Compile Include="SqlRentsRepository.cs" />
-    <Compile Include="SqlSportsHallsRepository.cs" />
-    <Compile Include="SqlSportsHallTypesRepository.cs" />
-    <Compile Include="SqlUsersRepository.cs" />
+    <Compile Include="Repositories\SqlBaseRepository.cs" />
+    <Compile Include="Repositories\SqlRentersRepository.cs" />
+    <Compile Include="Repositories\SqlRentsRepository.cs" />
+    <Compile Include="Repositories\SqlSportsHallsRepository.cs" />
+    <Compile Include="Repositories\SqlSportsHallTypesRepository.cs" />
+    <Compile Include="Repositories\SqlUsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SportsComplex.Entities\SportsComplex.Entities.csproj">
@@ -60,6 +60,7 @@
       <Name>SportsComplex.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
