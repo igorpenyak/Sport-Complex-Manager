@@ -78,6 +78,7 @@ namespace SportsComplex.DesktopUI
             }
         }
 
+        // IP: ці поля мали би бути описані напочатку інтерфейсу класу
         private SqlCustomersRepository _customersRepository;
         private string connString = ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString;
     }

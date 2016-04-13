@@ -28,6 +28,7 @@ namespace SportsComplex.DesktopUI
             }
             else
             {
+                //IP: ініціалізувати посилання на репо доцільніше в конструкторі
                 var customersRepository = new SqlCustomersRepository(ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString);
 
                 customersRepository.Add(tbLastName.Text, tbFirstName.Text, mtbPhone.Text);

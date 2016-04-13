@@ -57,6 +57,7 @@ namespace SportsComplex.DesktopUI
             UpdateSportsHallTypes();
         }
 
+        // IP: це поле мало би бути описано напочатку інтерфейсу класу
         private SqlSportsHallTypesRepository _sportsHallTypesRepository;
 
         private void btnRemove_Click(object sender, EventArgs e)

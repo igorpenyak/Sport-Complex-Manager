@@ -48,6 +48,7 @@ namespace SportsComplex.DesktopUI
             }
         }
 
+        // IP: це поле мало би бути описано напочатку інтерфейсу класу
         private SqlSportsHallsRepository _sportsHallsRepository;
 
         private void btnRemove_Click(object sender, EventArgs e)

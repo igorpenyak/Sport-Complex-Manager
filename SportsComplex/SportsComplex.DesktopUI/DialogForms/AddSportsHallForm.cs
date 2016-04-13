@@ -47,6 +47,7 @@ namespace SportsComplex.DesktopUI
             }
         }
 
+        // IP: ці поля мали би бути описані напочатку інтерфейсу класу
         private SqlSportsHallTypesRepository _sportsHallTypesRepository;
         private SqlSportsHallsRepository _sportsHallRepository;
     }

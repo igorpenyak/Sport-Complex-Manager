@@ -13,6 +13,7 @@ namespace SportsComplex.DesktopUI
         public NewRentForm()
         {
             InitializeComponent();
+            
             _sportsHallTypesRepository = new SqlSportsHallTypesRepository(_connString);
             _sportsHallsRepository = new SqlSportsHallsRepository(_connString);
             _customersRepository = new SqlCustomersRepository(_connString);
@@ -150,6 +151,7 @@ namespace SportsComplex.DesktopUI
             UpdateSportsHallsDataGridView(halls);
         }
 
+        // IP: ці поля мали би бути описані напочатку інтерфейсу класу
         private SqlSportsHallsRepository _sportsHallsRepository;
         private SqlSportsHallTypesRepository _sportsHallTypesRepository;
         private SqlCustomersRepository _customersRepository;

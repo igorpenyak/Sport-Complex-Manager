@@ -42,6 +42,7 @@ namespace SportsComplex.DesktopUI
             return;
         }
 
+        // IP: ці поля мали би бути описані напочатку інтерфейсу класу
         private SqlRentsRepository _rentsRepository;
 
         private string _connString = ConfigurationManager.ConnectionStrings["SportsComplexConnectionString"].ConnectionString;
